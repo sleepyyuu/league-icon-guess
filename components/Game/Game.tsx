@@ -5,6 +5,7 @@ import styles from "../../styles/Game.module.scss";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import { isMobile } from "react-device-detect";
 
 //useEffect check if life === 0. popup with newgame option, dependency array life
 
@@ -52,6 +53,13 @@ export default function Game() {
   };
 
   useEffect(() => {
+    let abilityAmount = 0;
+    if (isMobile) {
+      //mobilescreen, handle
+      abilityAmount = 4;
+    } else {
+      abilityAmount = 7;
+    }
     setGetAnswer(false);
     setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
     const answerChampionNumber = Math.floor(Math.random() * championArray.length);
@@ -70,7 +78,7 @@ export default function Game() {
       setSelectedChampionAbility(selectedAbility);
     }
     let additionalAbilityChoices = [];
-    while (additionalAbilityChoices.length < 7) {
+    while (additionalAbilityChoices.length < abilityAmount) {
       let randomChampionNumber = Math.floor(Math.random() * championArray.length);
       let additionalSelectedChamp = require("../../assets/data/champion/" + championArray[randomChampionNumber] + ".json").data;
       additionalSelectedChamp = additionalSelectedChamp[Object.keys(additionalSelectedChamp)[0]];
@@ -85,7 +93,7 @@ export default function Game() {
       }
     }
     let additionalPassiveChoices = [];
-    while (additionalPassiveChoices.length < 7) {
+    while (additionalPassiveChoices.length < abilityAmount) {
       let randomChampionNumber = Math.floor(Math.random() * championArray.length);
       if (randomChampionNumber === answerChampionNumber) {
         continue;
@@ -101,7 +109,11 @@ export default function Game() {
     }
     let abilityOptionsArray = [...additionalAbilityChoices, selectedAbility, ...additionalPassiveChoices];
     shuffleArray(abilityOptionsArray);
-    setAbilityOptions([abilityOptionsArray.slice(0, 5), abilityOptionsArray.slice(5, 10), abilityOptionsArray.slice(10, 15)]);
+    if (isMobile) {
+      setAbilityOptions([abilityOptionsArray.slice(0, 3), abilityOptionsArray.slice(3, 6), abilityOptionsArray.slice(6, 9)]);
+    } else {
+      setAbilityOptions([abilityOptionsArray.slice(0, 5), abilityOptionsArray.slice(5, 10), abilityOptionsArray.slice(10, 15)]);
+    }
   }, [gameCount]);
 
   useEffect(() => {
