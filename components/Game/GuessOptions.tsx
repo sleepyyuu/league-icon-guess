@@ -50,7 +50,16 @@ export default function GuessOptions(props) {
               } else {
                 imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/passive/" + ability.image.full;
               }
-
+              let imageElement = (
+                <img
+                  src={imageSource}
+                  width={100}
+                  height={100}
+                  onClick={() => {
+                    handleImageClick(ability, abilityRowIndex, abilityIndex);
+                  }}
+                ></img>
+              );
               return (
                 <div
                   key={abilityIndex}
@@ -61,14 +70,7 @@ export default function GuessOptions(props) {
                       : styles.abilityImageContainer
                   }
                 >
-                  <img
-                    src={imageSource}
-                    width={100}
-                    height={100}
-                    onClick={() => {
-                      handleImageClick(ability, abilityRowIndex, abilityIndex);
-                    }}
-                  ></img>
+                  {imageElement}
                 </div>
               );
             })}

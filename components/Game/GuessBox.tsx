@@ -32,14 +32,14 @@ export default function GuessBox(props) {
           }
           return (
             <div key={uniqid()} className={styles.guessBox + " " + styles.abilityImageContainer}>
-              <Image
+              <img
                 src={imageSource}
                 width={100}
                 height={100}
                 onClick={() => {
                   handleSelectionRemove(guessAbilityIndex);
                 }}
-              ></Image>
+              ></img>
             </div>
           );
         } else {

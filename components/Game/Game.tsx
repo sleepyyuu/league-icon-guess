@@ -96,7 +96,7 @@ export default function Game() {
           }
           return (
             <div key={uniqid()} className={styles.guessedBox + " " + styles.abilityImageContainer}>
-              {guessedAbility.image.full === "" ? null : <Image src={imageSource} width={100} height={100}></Image>}
+              {guessedAbility.image.full === "" ? null : <img src={imageSource} width={100} height={100}></img>}
             </div>
           );
         })}
