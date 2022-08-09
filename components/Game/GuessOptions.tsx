@@ -3,11 +3,24 @@ import uniqid from "uniqid";
 import styles from "../../styles/GuessOptions.module.scss";
 
 export default function GuessOptions(props) {
-  let { abilityOptions, setAbilityOptions, currentGuessRow, setCurrentGuessRow, checkAnswer, selectedChampionAbility, getAnswer } = props;
+  let {
+    abilityOptions,
+    setAbilityOptions,
+    currentGuessRow,
+    setCurrentGuessRow,
+    checkAnswer,
+    selectedChampionAbility,
+    getAnswer,
+    userLife,
+  } = props;
 
   const handleImageClick = (ability, abilityRowIndex, abilityIndex) => {
-    checkAnswer(ability);
-    setCurrentGuessRow([ability]);
+    if (getAnswer || userLife === 0) {
+      return;
+    } else {
+      checkAnswer(ability);
+      setCurrentGuessRow([ability]);
+    }
   };
 
   return (

@@ -20,10 +20,6 @@ export default function Home() {
       <main className={styles.main}>
         <Game></Game>
       </main>
-
-      <footer className={styles.footer}>
-        <div>footer</div>
-      </footer>
     </div>
   );
 }

@@ -1,12 +1,14 @@
-import GuessBox from "./GuessBox";
 import GuessOptions from "./GuessOptions";
+import GameScoreBoard from "./GameScoreBoard";
 import championListData from "../../assets/data/champion.json";
 import styles from "../../styles/Game.module.scss";
 import { useEffect, useState } from "react";
-import uniqid from "uniqid";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+
+//useEffect check if life === 0. popup with newgame option
 
 export default function Game() {
-  const [selectedChampion, setSelectedChampion] = useState({ name: "" });
   const [selectedChampionAbility, setSelectedChampionAbility] = useState({ name: "" });
   const [abilityOptions, setAbilityOptions] = useState([]);
   const [currentGuessRow, setCurrentGuessRow] = useState([{ name: "", image: { full: "" }, isPassive: false }]);
@@ -15,6 +17,9 @@ export default function Game() {
   const [userScore, setUserScore] = useState(0);
   const [getAnswer, setGetAnswer] = useState(false);
   const [results, setResults] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const championArray = Object.keys(championListData.data);
 
   const checkAnswer = (currentGuess) => {
     setGetAnswer(true);
@@ -28,14 +33,20 @@ export default function Game() {
     }
   };
 
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  };
+
   useEffect(() => {
     setGetAnswer(false);
     setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
-    const championArray = Object.keys(championListData.data);
     const answerChampionNumber = Math.floor(Math.random() * championArray.length);
     let selectedChamp = require("../../assets/data/champion/" + championArray[answerChampionNumber] + ".json").data;
     selectedChamp = selectedChamp[Object.keys(selectedChamp)[0]];
-    setSelectedChampion(selectedChamp);
+
     let randomSelect = Math.floor(Math.random() * 5);
     let selectedAbility;
     if (randomSelect > 3) {
@@ -75,34 +86,57 @@ export default function Game() {
       }
     }
     let abilityOptionsArray = [...additionalAbilityChoices, selectedAbility, ...additionalPassiveChoices];
-    const shuffleArray = (array) => {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-    };
     shuffleArray(abilityOptionsArray);
     setAbilityOptions([abilityOptionsArray.slice(0, 5), abilityOptionsArray.slice(5, 10), abilityOptionsArray.slice(10, 15)]);
   }, [gameCount]);
 
+  useEffect(() => {
+    setShowMenu(true);
+  }, []);
+
   return (
     <div>
-      <div>lives remaining : {userLife}</div>
-      <div>score : {userScore}</div>
-
-      <div>Which of these is {selectedChampionAbility ? selectedChampionAbility.name : ""}</div>
-
-      <div className={styles.answerCheckContainer}>
-        {getAnswer ? results ? <div>correct!</div> : <div>try again</div> : null}{" "}
-        <button
-          onClick={() => {
-            setGameCount(gameCount + 1);
-          }}
-        >
-          next game
-        </button>
-      </div>
-
+      <Popup
+        overlayStyle={{ background: "rgba(0,0,0,0.5)" }}
+        contentStyle={{
+          backgroundColor: "rgb(24, 24, 24)",
+          border: "none",
+          borderRadius: "7px",
+          maxWidth: "36rem",
+          height: "45rem",
+          padding: "0px",
+        }}
+        modal
+        open={showMenu}
+        closeOnDocumentClick
+        onClose={() => {
+          setShowMenu(false);
+        }}
+      >
+        <div className={styles.modal}>
+          <button
+            className={styles.modalClose}
+            onClick={() => {
+              setShowMenu(false);
+            }}
+          >
+            &times;
+          </button>
+          <div className={styles.modalHeader}>How To Play</div>
+          <div className={styles.modalContent}>
+            <div>Click on the icon that matches the name</div>
+            <div>Aim for a high streak within 3 lives.</div>
+            <div>One shot only for each question</div>
+            <div>
+              Examples
+              <div>Blinding dart</div>
+              <div>90 Caliber net</div>
+            </div>
+          </div>
+        </div>
+      </Popup>
+      <GameScoreBoard userLife={userLife} userScore={userScore}></GameScoreBoard>
+      <div className={styles.answerCheckContainer}>{getAnswer ? results ? <div>correct!</div> : <div>try again</div> : null} </div>
       <GuessOptions
         abilityOptions={abilityOptions}
         setAbilityOptions={setAbilityOptions}
@@ -111,7 +145,19 @@ export default function Game() {
         checkAnswer={checkAnswer}
         selectedChampionAbility={selectedChampionAbility}
         getAnswer={getAnswer}
+        userLife={userLife}
       ></GuessOptions>
+      <div>Which of these is {selectedChampionAbility ? selectedChampionAbility.name : ""}</div>
+      <button
+        onClick={() => {
+          if (userLife === 0) {
+            return;
+          }
+          setGameCount(gameCount + 1);
+        }}
+      >
+        next game
+      </button>
     </div>
   );
 }
