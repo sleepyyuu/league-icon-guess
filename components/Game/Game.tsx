@@ -128,8 +128,9 @@ export default function Game() {
           backgroundColor: "rgb(24, 24, 24)",
           border: "none",
           borderRadius: "7px",
-          maxWidth: "36rem",
-          height: "45rem",
+          width: isMobile ? "85%" : "33rem",
+          maxWidth: "33rem",
+          height: isMobile ? "32rem" : "45rem",
           padding: "0px",
         }}
         modal
@@ -168,7 +169,7 @@ export default function Game() {
           border: "none",
           borderRadius: "7px",
           maxWidth: "36rem",
-          height: "45rem",
+          height: isMobile ? "32rem" : "45rem",
           padding: "0px",
         }}
         modal
