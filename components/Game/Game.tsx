@@ -197,7 +197,9 @@ export default function Game() {
       </Popup>
       <GameScoreBoard userLife={userLife} userScore={userScore}></GameScoreBoard>
       <div className={styles.gameFooter}>
-        <div className={styles.question}>Which of these is {selectedChampionAbility ? selectedChampionAbility.name : ""}?</div>
+        <div className={styles.question}>
+          Which of these is <div className={styles.abilityName}>{selectedChampionAbility ? selectedChampionAbility.name + "?" : ""}</div>
+        </div>
       </div>
       {/*<div className={styles.answerCheckContainer}>{getAnswer ? results ? <div>correct!</div> : <div>try again</div> : null} </div>*/}
       <GuessOptions

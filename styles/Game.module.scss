@@ -28,7 +28,14 @@
 }
 
 .question {
+  display: flex;
+  flex-direction: column;
   text-align: center;
+}
+
+.abilityName {
+  font-weight: bold;
+  font-size: 1.3rem;
 }
 
 .newGameButton {

@@ -1,5 +1,4 @@
 .container {
-  padding: 0 2rem;
 }
 
 .main {
@@ -12,51 +11,15 @@
   align-items: center;
 }
 
-.footer a {
+.gameHeader {
+  border-bottom: 1px outset rgb(151, 151, 151);
+  height: 3.5rem;
+  width: 100%;
+}
+
+.gameTitle {
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-grow: 1;
-}
-
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
-  }
 }

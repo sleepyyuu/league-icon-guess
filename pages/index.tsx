@@ -12,9 +12,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>
-        league ability match
-        <div>links</div>
+      <header className={styles.gameHeader}>
+        <div></div>
+        <div className={styles.gameTitle}>LoL Icon Guess</div>
+        <div></div>
       </header>
 
       <main className={styles.main}>
