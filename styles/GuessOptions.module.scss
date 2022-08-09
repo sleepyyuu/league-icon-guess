@@ -1,3 +1,21 @@
+@keyframes bg {
+  0% {
+    background-size: 0 3px, 3px 0, 0 3px, 3px 0;
+  }
+  25% {
+    background-size: 100% 3px, 3px 0, 0 3px, 3px 0;
+  }
+  50% {
+    background-size: 100% 3px, 3px 100%, 0 3px, 3px 0;
+  }
+  75% {
+    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 0;
+  }
+  100% {
+    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  }
+}
+
 .guessOptionContainer {
   display: grid;
   grid-template-rows: repeat(3, 1fr);
@@ -9,9 +27,39 @@
 
 .abilityImageContainer {
   margin: 5px;
-  filter: hue-rotate(160deg);
+  filter: hue-rotate(0deg);
+  width: 95px;
+  height: 95px;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .abilityImageContainerSelected {
   opacity: 0.2;
+}
+
+.abilityImage {
+  padding: 5px;
+}
+
+.abilityAnswerAnimate {
+  padding: 5px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #a2e9a2 100%, #a2e9a2 100%), linear-gradient(to bottom, #a2e9a2 100%, #a2e9a2 100%),
+    linear-gradient(to right, #a2e9a2 100%, #a2e9a2 100%), linear-gradient(to bottom, #a2e9a2 100%, #a2e9a2 100%);
+  background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  animation: bg 0.75s cubic-bezier(1, 1, 1, 1) 1;
+  animation-play-state: running;
+}
+
+.abilityChosenAnimate {
+  padding: 5px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #e24641 100%, #e24641 100%), linear-gradient(to bottom, #e24641 100%, #e24641 100%),
+    linear-gradient(to right, #e24641 100%, #e24641 100%), linear-gradient(to bottom, #e24641 100%, #e24641 100%);
+  background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  animation: bg 0.75s cubic-bezier(1, 1, 1, 1) 1;
+  animation-play-state: running;
 }

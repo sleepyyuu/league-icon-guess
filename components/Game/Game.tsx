@@ -2,7 +2,6 @@ import GuessBox from "./GuessBox";
 import GuessOptions from "./GuessOptions";
 import championListData from "../../assets/data/champion.json";
 import styles from "../../styles/Game.module.scss";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import uniqid from "uniqid";
 
@@ -10,27 +9,28 @@ export default function Game() {
   const [selectedChampion, setSelectedChampion] = useState({ name: "" });
   const [selectedChampionAbility, setSelectedChampionAbility] = useState({ name: "" });
   const [abilityOptions, setAbilityOptions] = useState([]);
-  const [alreadyGuessed, setAlreadyGuessed] = useState([
-    { name: "", image: { full: "" }, isPassive: false },
-    { name: "", image: { full: "" }, isPassive: false },
-    { name: "", image: { full: "" }, isPassive: false },
-    { name: "", image: { full: "" }, isPassive: false },
-    { name: "", image: { full: "" }, isPassive: false },
-  ]);
   const [currentGuessRow, setCurrentGuessRow] = useState([{ name: "", image: { full: "" }, isPassive: false }]);
-  const [guessNumber, setGuessNumber] = useState(0);
+  const [gameCount, setGameCount] = useState(0);
+  const [userLife, setUserLife] = useState(3);
+  const [userScore, setUserScore] = useState(0);
   const [getAnswer, setGetAnswer] = useState(false);
   const [results, setResults] = useState(false);
 
-  const checkAnswer = () => {
+  const checkAnswer = (currentGuess) => {
     setGetAnswer(true);
-    if (selectedChampionAbility.name !== currentGuessRow[0].name) {
-      return false;
+    if (selectedChampionAbility.name === currentGuess.name) {
+      setResults(true);
+      setUserScore(userScore + 1);
+    } else {
+      setResults(false);
+      setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
+      setUserLife(userLife - 1);
     }
-    return true;
   };
 
   useEffect(() => {
+    setGetAnswer(false);
+    setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
     const championArray = Object.keys(championListData.data);
     const answerChampionNumber = Math.floor(Math.random() * championArray.length);
     let selectedChamp = require("../../assets/data/champion/" + championArray[answerChampionNumber] + ".json").data;
@@ -48,7 +48,7 @@ export default function Game() {
       setSelectedChampionAbility(selectedAbility);
     }
     let additionalAbilityChoices = [];
-    while (additionalAbilityChoices.length < 8) {
+    while (additionalAbilityChoices.length < 7) {
       let randomChampionNumber = Math.floor(Math.random() * championArray.length);
       let additionalSelectedChamp = require("../../assets/data/champion/" + championArray[randomChampionNumber] + ".json").data;
       additionalSelectedChamp = additionalSelectedChamp[Object.keys(additionalSelectedChamp)[0]];
@@ -60,7 +60,7 @@ export default function Game() {
       }
     }
     let additionalPassiveChoices = [];
-    while (additionalPassiveChoices.length < 6) {
+    while (additionalPassiveChoices.length < 7) {
       let randomChampionNumber = Math.floor(Math.random() * championArray.length);
       if (randomChampionNumber === answerChampionNumber) {
         continue;
@@ -83,59 +83,24 @@ export default function Game() {
     };
     shuffleArray(abilityOptionsArray);
     setAbilityOptions([abilityOptionsArray.slice(0, 5), abilityOptionsArray.slice(5, 10), abilityOptionsArray.slice(10, 15)]);
-  }, []);
+  }, [gameCount]);
+
   return (
     <div>
-      <div className={styles.guessedBoxContainer}>
-        {alreadyGuessed.map((guessedAbility) => {
-          let imageSource = "";
-          if (!guessedAbility.isPassive) {
-            imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/spell/" + guessedAbility.image.full;
-          } else {
-            imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/passive/" + guessedAbility.image.full;
-          }
-          return (
-            <div key={uniqid()} className={styles.guessedBox + " " + styles.abilityImageContainer}>
-              {guessedAbility.image.full === "" ? null : <img src={imageSource} width={100} height={100}></img>}
-            </div>
-          );
-        })}
-      </div>
+      <div>lives remaining : {userLife}</div>
+      <div>score : {userScore}</div>
+
       <div>Which of these is {selectedChampionAbility ? selectedChampionAbility.name : ""}</div>
-      <GuessBox
-        abilityOptions={abilityOptions}
-        setAbilityOptions={setAbilityOptions}
-        currentGuessRow={currentGuessRow}
-        setCurrentGuessRow={setCurrentGuessRow}
-        results={results}
-      ></GuessBox>
+
       <div className={styles.answerCheckContainer}>
+        {getAnswer ? results ? <div>correct!</div> : <div>try again</div> : null}{" "}
         <button
           onClick={() => {
-            if (results === false) {
-              let found = false;
-              let index = 0;
-              while (!found) {
-                if (alreadyGuessed[index].name === "") {
-                  let alreadyGuessedCopy = [...alreadyGuessed];
-                  alreadyGuessedCopy[index] = currentGuessRow[0];
-                  setAlreadyGuessed(alreadyGuessedCopy);
-                  found = true;
-                } else {
-                  index++;
-                }
-              }
-            }
-            if (checkAnswer()) {
-              setResults(true);
-            } else {
-              setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
-            }
+            setGameCount(gameCount + 1);
           }}
         >
-          check answer
+          next game
         </button>
-        {getAnswer ? results ? <div>correct!</div> : <div>try again</div> : null}
       </div>
 
       <GuessOptions
@@ -143,6 +108,9 @@ export default function Game() {
         setAbilityOptions={setAbilityOptions}
         currentGuessRow={currentGuessRow}
         setCurrentGuessRow={setCurrentGuessRow}
+        checkAnswer={checkAnswer}
+        selectedChampionAbility={selectedChampionAbility}
+        getAnswer={getAnswer}
       ></GuessOptions>
     </div>
   );

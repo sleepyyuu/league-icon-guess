@@ -3,41 +3,13 @@ import uniqid from "uniqid";
 import styles from "../../styles/GuessOptions.module.scss";
 
 export default function GuessOptions(props) {
-  let { abilityOptions, setAbilityOptions, currentGuessRow, setCurrentGuessRow } = props;
+  let { abilityOptions, setAbilityOptions, currentGuessRow, setCurrentGuessRow, checkAnswer, selectedChampionAbility, getAnswer } = props;
 
   const handleImageClick = (ability, abilityRowIndex, abilityIndex) => {
-    if (ability.selected === true || currentGuessRow[0].name !== "") {
-      return;
-    } else {
-      let copyAbilityOptionsArray = [...abilityOptions];
-      let abilityObject = copyAbilityOptionsArray[abilityRowIndex][abilityIndex];
-      abilityObject = { ...abilityObject, selected: true, rowIndex: abilityRowIndex, columnIndex: abilityIndex };
-      if (abilityObject.id) {
-        abilityObject.isPassive = false;
-      } else {
-        abilityObject.isPassive = true;
-      }
-      copyAbilityOptionsArray[abilityRowIndex][abilityIndex] = abilityObject;
-      setAbilityOptions(copyAbilityOptionsArray);
-
-      let found = false;
-      let index = 0;
-      while (!found) {
-        if (!currentGuessRow[index].name) {
-          let currentGuessRowCopy = [...currentGuessRow];
-          currentGuessRowCopy[index] = abilityObject;
-          setCurrentGuessRow(currentGuessRowCopy);
-          found = true;
-        } else {
-          index++;
-        }
-      }
-    }
+    checkAnswer(ability);
+    setCurrentGuessRow([ability]);
   };
-  //pick random champion
-  //get all abilities/icons for that champion
-  //get 5 more random icons from any, no dupes
-  //array of icons, if any icons random number match, get another num
+
   return (
     <div className={styles.guessOptionContainer}>
       {abilityOptions.map((abilityRow, abilityRowIndex) => {
@@ -50,6 +22,7 @@ export default function GuessOptions(props) {
               } else {
                 imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/passive/" + ability.image.full;
               }
+
               let imageElement = (
                 <img
                   src={imageSource}
@@ -58,18 +31,17 @@ export default function GuessOptions(props) {
                   onClick={() => {
                     handleImageClick(ability, abilityRowIndex, abilityIndex);
                   }}
+                  className={
+                    selectedChampionAbility.name === ability.name && getAnswer
+                      ? styles.abilityAnswerAnimate + " " + styles.abilityImage
+                      : currentGuessRow[0].name === ability.name && getAnswer
+                      ? styles.abilityChosenAnimate + " " + styles.abilityImage
+                      : styles.abilityImage
+                  }
                 ></img>
               );
               return (
-                <div
-                  key={abilityIndex}
-                  suppressHydrationWarning
-                  className={
-                    ability.selected
-                      ? styles.abilityImageContainerSelected + " " + styles.abilityImageContainer
-                      : styles.abilityImageContainer
-                  }
-                >
+                <div key={abilityIndex} suppressHydrationWarning className={styles.abilityImageContainer}>
                   {imageElement}
                 </div>
               );
