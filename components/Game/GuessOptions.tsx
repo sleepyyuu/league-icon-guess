@@ -12,6 +12,11 @@ export default function GuessOptions(props) {
       let copyAbilityOptionsArray = [...abilityOptions];
       let abilityObject = copyAbilityOptionsArray[abilityRowIndex][abilityIndex];
       abilityObject = { ...abilityObject, selected: true, rowIndex: abilityRowIndex, columnIndex: abilityIndex };
+      if (abilityObject.id) {
+        abilityObject.isPassive = false;
+      } else {
+        abilityObject.isPassive = true;
+      }
       copyAbilityOptionsArray[abilityRowIndex][abilityIndex] = abilityObject;
       setAbilityOptions(copyAbilityOptionsArray);
 
@@ -39,7 +44,13 @@ export default function GuessOptions(props) {
         return (
           <div key={abilityRowIndex} className={styles.abilityRow}>
             {abilityRow.map((ability, abilityIndex) => {
-              let imageSource = "/images/spell/" + ability.image.full;
+              let imageSource = "";
+              if (ability.id) {
+                imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/spell/" + ability.image.full;
+              } else {
+                imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/passive/" + ability.image.full;
+              }
+
               return (
                 <div
                   key={abilityIndex}

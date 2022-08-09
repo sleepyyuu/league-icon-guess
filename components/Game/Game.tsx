@@ -11,13 +11,13 @@ export default function Game() {
   const [selectedChampionAbility, setSelectedChampionAbility] = useState({ name: "" });
   const [abilityOptions, setAbilityOptions] = useState([]);
   const [alreadyGuessed, setAlreadyGuessed] = useState([
-    { name: "", image: { full: "" } },
-    { name: "", image: { full: "" } },
-    { name: "", image: { full: "" } },
-    { name: "", image: { full: "" } },
-    { name: "", image: { full: "" } },
+    { name: "", image: { full: "" }, isPassive: false },
+    { name: "", image: { full: "" }, isPassive: false },
+    { name: "", image: { full: "" }, isPassive: false },
+    { name: "", image: { full: "" }, isPassive: false },
+    { name: "", image: { full: "" }, isPassive: false },
   ]);
-  const [currentGuessRow, setCurrentGuessRow] = useState([{ name: "", image: { full: "" } }]);
+  const [currentGuessRow, setCurrentGuessRow] = useState([{ name: "", image: { full: "" }, isPassive: false }]);
   const [guessNumber, setGuessNumber] = useState(0);
   const [getAnswer, setGetAnswer] = useState(false);
   const [results, setResults] = useState(false);
@@ -40,10 +40,12 @@ export default function Game() {
     let selectedAbility;
     if (randomSelect > 3) {
       selectedAbility = selectedChamp.passive;
-      setSelectedChampionAbility(selectedChamp.passive);
+      selectedAbility.isPassive = true;
+      setSelectedChampionAbility(selectedAbility);
     } else {
       selectedAbility = selectedChamp.spells[randomSelect];
-      setSelectedChampionAbility(selectedChamp.spells[randomSelect]);
+      selectedAbility.isPassive = false;
+      setSelectedChampionAbility(selectedAbility);
     }
     let additionalAbilityChoices = [];
     while (additionalAbilityChoices.length < 8) {
@@ -86,11 +88,15 @@ export default function Game() {
     <div>
       <div className={styles.guessedBoxContainer}>
         {alreadyGuessed.map((guessedAbility) => {
+          let imageSource = "";
+          if (!guessedAbility.isPassive) {
+            imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/spell/" + guessedAbility.image.full;
+          } else {
+            imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/passive/" + guessedAbility.image.full;
+          }
           return (
             <div key={uniqid()} className={styles.guessedBox + " " + styles.abilityImageContainer}>
-              {guessedAbility.image.full === "" ? null : (
-                <Image src={"/images/spell/" + guessedAbility.image.full} width={100} height={100}></Image>
-              )}
+              {guessedAbility.image.full === "" ? null : <Image src={imageSource} width={100} height={100}></Image>}
             </div>
           );
         })}
@@ -123,7 +129,7 @@ export default function Game() {
             if (checkAnswer()) {
               setResults(true);
             } else {
-              setCurrentGuessRow([{ name: "", image: { full: "" } }]);
+              setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
             }
           }}
         >
