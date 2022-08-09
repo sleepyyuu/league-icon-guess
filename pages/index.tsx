@@ -18,8 +18,6 @@ export default function Home() {
       </header>
 
       <main className={styles.main}>
-        <div>timer component</div>
-        <div>game component, 5 boxes. 5 more every failure</div>
         <Game></Game>
       </main>
 

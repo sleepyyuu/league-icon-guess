@@ -4,17 +4,15 @@ import uniqid from "uniqid";
 import Image from "next/image";
 
 export default function GuessBox(props) {
-  let { abilityOptions, setAbilityOptions, currentGuessRow, setCurrentGuessRow } = props;
-  let paddedCurrentGuessRow = [...currentGuessRow];
-  while (paddedCurrentGuessRow.length < 5) {
-    paddedCurrentGuessRow.push({});
-  }
+  let { abilityOptions, setAbilityOptions, currentGuessRow, setCurrentGuessRow, results } = props;
 
   const handleSelectionRemove = (guessAbilityIndex) => {
+    if (results) {
+      return;
+    }
     let currentAbilityObject = currentGuessRow[guessAbilityIndex];
-    let currentGuessRowCopy = [...currentGuessRow];
-    currentGuessRowCopy[guessAbilityIndex] = {};
-    setCurrentGuessRow(currentGuessRowCopy);
+
+    setCurrentGuessRow([{ name: "" }]);
 
     currentAbilityObject.selected = false;
     let abilityOptionsCopy = [...abilityOptions];
@@ -24,7 +22,7 @@ export default function GuessBox(props) {
 
   return (
     <div className={styles.guessBoxContainer}>
-      {paddedCurrentGuessRow.map((guessAbility, guessAbilityIndex) => {
+      {currentGuessRow.map((guessAbility, guessAbilityIndex) => {
         if (guessAbility.name) {
           return (
             <div key={uniqid()} className={styles.guessBox}>

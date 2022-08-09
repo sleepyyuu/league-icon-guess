@@ -6,13 +6,7 @@ export default function GuessOptions(props) {
   let { abilityOptions, setAbilityOptions, currentGuessRow, setCurrentGuessRow } = props;
 
   const handleImageClick = (ability, abilityRowIndex, abilityIndex) => {
-    let emptyAnswerSlots = 5;
-    for (let abilityGuess of currentGuessRow) {
-      if (abilityGuess.name) {
-        emptyAnswerSlots--;
-      }
-    }
-    if (ability.selected === true || emptyAnswerSlots === 0) {
+    if (ability.selected === true || currentGuessRow[0].name !== "") {
       return;
     } else {
       let copyAbilityOptionsArray = [...abilityOptions];

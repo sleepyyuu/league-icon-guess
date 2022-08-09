@@ -1,23 +1,31 @@
 import GuessBox from "./GuessBox";
 import GuessOptions from "./GuessOptions";
 import championListData from "../../assets/data/champion.json";
+import styles from "../../styles/Game.module.scss";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import uniqid from "uniqid";
 
 export default function Game() {
   const [selectedChampion, setSelectedChampion] = useState({ name: "" });
-  const [selectedChampionAbilities, setSelectedChampionAbilities] = useState([]);
+  const [selectedChampionAbility, setSelectedChampionAbility] = useState({ name: "" });
   const [abilityOptions, setAbilityOptions] = useState([]);
-  const [currentGuessRow, setCurrentGuessRow] = useState([{ name: "" }, { name: "" }, { name: "" }, { name: "" }, { name: "" }]);
+  const [alreadyGuessed, setAlreadyGuessed] = useState([
+    { name: "", image: { full: "" } },
+    { name: "", image: { full: "" } },
+    { name: "", image: { full: "" } },
+    { name: "", image: { full: "" } },
+    { name: "", image: { full: "" } },
+  ]);
+  const [currentGuessRow, setCurrentGuessRow] = useState([{ name: "", image: { full: "" } }]);
   const [guessNumber, setGuessNumber] = useState(0);
   const [getAnswer, setGetAnswer] = useState(false);
-  const [results, setResults] = useState("");
+  const [results, setResults] = useState(false);
 
   const checkAnswer = () => {
     setGetAnswer(true);
-    for (let i = 0; i < 5; i++) {
-      if (selectedChampionAbilities[i].name !== currentGuessRow[i].name) {
-        return false;
-      }
+    if (selectedChampionAbility.name !== currentGuessRow[0].name) {
+      return false;
     }
     return true;
   };
@@ -28,25 +36,29 @@ export default function Game() {
     let selectedChamp = require("../../assets/data/champion/" + championArray[answerChampionNumber] + ".json").data;
     selectedChamp = selectedChamp[Object.keys(selectedChamp)[0]];
     setSelectedChampion(selectedChamp);
-    setSelectedChampionAbilities([selectedChamp.passive, ...selectedChamp.spells]);
+    let randomSelect = Math.floor(Math.random() * 5);
+    let selectedAbility;
+    if (randomSelect > 3) {
+      selectedAbility = selectedChamp.passive;
+      setSelectedChampionAbility(selectedChamp.passive);
+    } else {
+      selectedAbility = selectedChamp.spells[randomSelect];
+      setSelectedChampionAbility(selectedChamp.spells[randomSelect]);
+    }
     let additionalAbilityChoices = [];
     while (additionalAbilityChoices.length < 8) {
       let randomChampionNumber = Math.floor(Math.random() * championArray.length);
-      if (randomChampionNumber === answerChampionNumber) {
+      let additionalSelectedChamp = require("../../assets/data/champion/" + championArray[randomChampionNumber] + ".json").data;
+      additionalSelectedChamp = additionalSelectedChamp[Object.keys(additionalSelectedChamp)[0]];
+      let randomAbilitySelect = Math.floor(Math.random() * 4);
+      if (additionalAbilityChoices.find((ability) => ability.name === additionalSelectedChamp.spells[randomAbilitySelect].name)) {
         continue;
       } else {
-        let additionalSelectedChamp = require("../../assets/data/champion/" + championArray[randomChampionNumber] + ".json").data;
-        additionalSelectedChamp = additionalSelectedChamp[Object.keys(additionalSelectedChamp)[0]];
-        let randomAbilitySelect = Math.floor(Math.random() * 4);
-        if (additionalAbilityChoices.find((ability) => ability.name === additionalSelectedChamp.spells[randomAbilitySelect].name)) {
-          continue;
-        } else {
-          additionalAbilityChoices.push(additionalSelectedChamp.spells[randomAbilitySelect]);
-        }
+        additionalAbilityChoices.push(additionalSelectedChamp.spells[randomAbilitySelect]);
       }
     }
     let additionalPassiveChoices = [];
-    while (additionalPassiveChoices.length < 2) {
+    while (additionalPassiveChoices.length < 6) {
       let randomChampionNumber = Math.floor(Math.random() * championArray.length);
       if (randomChampionNumber === answerChampionNumber) {
         continue;
@@ -60,7 +72,7 @@ export default function Game() {
         }
       }
     }
-    let abilityOptionsArray = [...selectedChamp.spells, ...additionalAbilityChoices, selectedChamp.passive, ...additionalPassiveChoices];
+    let abilityOptionsArray = [...additionalAbilityChoices, selectedAbility, ...additionalPassiveChoices];
     const shuffleArray = (array) => {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -72,20 +84,46 @@ export default function Game() {
   }, []);
   return (
     <div>
-      <div>Selected champion is {selectedChampion ? selectedChampion.name : ""}</div>
+      <div className={styles.guessedBoxContainer}>
+        {alreadyGuessed.map((guessedAbility) => {
+          return (
+            <div key={uniqid()} className={styles.guessedBox}>
+              {guessedAbility.image.full === "" ? null : (
+                <Image src={"/images/spell/" + guessedAbility.image.full} width={100} height={100}></Image>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <div>Which of these is {selectedChampionAbility ? selectedChampionAbility.name : ""}</div>
       <GuessBox
         abilityOptions={abilityOptions}
         setAbilityOptions={setAbilityOptions}
         currentGuessRow={currentGuessRow}
         setCurrentGuessRow={setCurrentGuessRow}
+        results={results}
       ></GuessBox>
-      {getAnswer ? <div>verdict is {results}</div> : null}
+      {getAnswer ? results ? <div>correct!</div> : <div>try again</div> : null}
       <button
         onClick={() => {
+          if (results === false) {
+            let found = false;
+            let index = 0;
+            while (!found) {
+              if (alreadyGuessed[index].name === "") {
+                let alreadyGuessedCopy = [...alreadyGuessed];
+                alreadyGuessedCopy[index] = currentGuessRow[0];
+                setAlreadyGuessed(alreadyGuessedCopy);
+                found = true;
+              } else {
+                index++;
+              }
+            }
+          }
           if (checkAnswer()) {
-            setResults("Correct!");
+            setResults(true);
           } else {
-            setResults("Wrong!");
+            setCurrentGuessRow([{ name: "", image: { full: "" } }]);
           }
         }}
       >
