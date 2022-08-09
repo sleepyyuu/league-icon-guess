@@ -54,6 +54,7 @@ export default function GuessOptions(props) {
                     src={imageSource}
                     width={100}
                     height={100}
+                    priority={true}
                     onClick={() => {
                       handleImageClick(ability, abilityRowIndex, abilityIndex);
                     }}

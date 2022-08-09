@@ -87,7 +87,7 @@ export default function Game() {
       <div className={styles.guessedBoxContainer}>
         {alreadyGuessed.map((guessedAbility) => {
           return (
-            <div key={uniqid()} className={styles.guessedBox}>
+            <div key={uniqid()} className={styles.guessedBox + " " + styles.abilityImageContainer}>
               {guessedAbility.image.full === "" ? null : (
                 <Image src={"/images/spell/" + guessedAbility.image.full} width={100} height={100}></Image>
               )}
@@ -103,32 +103,35 @@ export default function Game() {
         setCurrentGuessRow={setCurrentGuessRow}
         results={results}
       ></GuessBox>
-      {getAnswer ? results ? <div>correct!</div> : <div>try again</div> : null}
-      <button
-        onClick={() => {
-          if (results === false) {
-            let found = false;
-            let index = 0;
-            while (!found) {
-              if (alreadyGuessed[index].name === "") {
-                let alreadyGuessedCopy = [...alreadyGuessed];
-                alreadyGuessedCopy[index] = currentGuessRow[0];
-                setAlreadyGuessed(alreadyGuessedCopy);
-                found = true;
-              } else {
-                index++;
+      <div className={styles.answerCheckContainer}>
+        <button
+          onClick={() => {
+            if (results === false) {
+              let found = false;
+              let index = 0;
+              while (!found) {
+                if (alreadyGuessed[index].name === "") {
+                  let alreadyGuessedCopy = [...alreadyGuessed];
+                  alreadyGuessedCopy[index] = currentGuessRow[0];
+                  setAlreadyGuessed(alreadyGuessedCopy);
+                  found = true;
+                } else {
+                  index++;
+                }
               }
             }
-          }
-          if (checkAnswer()) {
-            setResults(true);
-          } else {
-            setCurrentGuessRow([{ name: "", image: { full: "" } }]);
-          }
-        }}
-      >
-        check answer
-      </button>
+            if (checkAnswer()) {
+              setResults(true);
+            } else {
+              setCurrentGuessRow([{ name: "", image: { full: "" } }]);
+            }
+          }}
+        >
+          check answer
+        </button>
+        {getAnswer ? results ? <div>correct!</div> : <div>try again</div> : null}
+      </div>
+
       <GuessOptions
         abilityOptions={abilityOptions}
         setAbilityOptions={setAbilityOptions}

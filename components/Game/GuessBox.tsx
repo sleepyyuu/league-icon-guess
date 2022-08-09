@@ -25,7 +25,7 @@ export default function GuessBox(props) {
       {currentGuessRow.map((guessAbility, guessAbilityIndex) => {
         if (guessAbility.name) {
           return (
-            <div key={uniqid()} className={styles.guessBox}>
+            <div key={uniqid()} className={styles.guessBox + " " + styles.abilityImageContainer}>
               <Image
                 src={"/images/spell/" + guessAbility.image.full}
                 width={100}

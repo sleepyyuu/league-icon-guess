@@ -3,8 +3,12 @@
 }
 
 .guessBox {
-  border: 1px solid grey;
-  width: 3rem;
-  height: 3rem;
-  margin: 4px;
+  outline: 1px solid grey;
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+}
+
+.abilityImageContainer {
+  filter: hue-rotate(160deg);
 }

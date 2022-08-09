@@ -9,10 +9,9 @@
 
 .abilityImageContainer {
   margin: 5px;
-  filter: saturate(0.8);
   filter: hue-rotate(160deg);
 }
 
 .abilityImageContainerSelected {
-  opacity: 0.3;
+  opacity: 0.2;
 }
