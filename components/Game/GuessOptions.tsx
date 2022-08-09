@@ -39,8 +39,8 @@ export default function GuessOptions(props) {
               let imageElement = (
                 <img
                   src={imageSource}
-                  width={100}
-                  height={100}
+                  width={110}
+                  height={110}
                   onClick={() => {
                     handleImageClick(ability, abilityRowIndex, abilityIndex);
                   }}

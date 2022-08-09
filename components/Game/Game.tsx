@@ -111,7 +111,7 @@ export default function Game() {
   return (
     <div>
       <Popup
-        overlayStyle={{ background: "rgba(0,0,0,0.5)" }}
+        overlayStyle={{ background: "rgba(0,0,0,0.55)" }}
         contentStyle={{
           backgroundColor: "rgb(24, 24, 24)",
           border: "none",
@@ -150,7 +150,7 @@ export default function Game() {
         </div>
       </Popup>
       <Popup
-        overlayStyle={{ background: "rgba(0,0,0,0.5)" }}
+        overlayStyle={{ background: "rgba(0,0,0,0.55)" }}
         contentStyle={{
           backgroundColor: "rgb(24, 24, 24)",
           border: "none",
