@@ -1,0 +1,17 @@
+.guessOptionContainer {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.abilityRow {
+  display: flex;
+}
+
+.abilityImageContainer {
+  margin: 5px;
+  filter: saturate(0.8);
+}
+
+.abilityImageContainerSelected {
+  opacity: 0.3;
+}
