@@ -21,6 +21,7 @@ export default function Game() {
   const [results, setResults] = useState(false);
   const [showInitialMenu, setShowInitialMenu] = useState(false);
   const [showEndMenu, setShowEndMenu] = useState(false);
+  const [animationEnd, setAnimationEnd] = useState(false);
 
   const championArray = Object.keys(championListData.data);
   const exampleAbilities = [
@@ -50,9 +51,6 @@ export default function Game() {
       setResults(false);
       setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
       setUserLife(userLife - 1);
-      if (userLife - 1 === 0) {
-        setShowEndMenu(true);
-      }
     }
   };
 
@@ -137,6 +135,15 @@ export default function Game() {
   useEffect(() => {
     setShowInitialMenu(true);
   }, []);
+
+  useEffect(() => {
+    if (userLife === 0) {
+      setTimeout(() => {
+        setShowEndMenu(true);
+        setAnimationEnd(true);
+      }, 1000);
+    }
+  }, [userLife]);
 
   return (
     <div>
@@ -242,7 +249,7 @@ export default function Game() {
                   </div>
                 </div>
                 <div className={styles.statDetailContainer}>
-                  <div className={styles.statDetailNumber}>0</div>
+                  <div className={styles.statDetailNumber}>{userScore}</div>
                   <div className={styles.statDetailText}>
                     <div>Current</div>
                     <div>Streak</div>
@@ -292,6 +299,7 @@ export default function Game() {
         selectedChampionAbility={selectedChampionAbility}
         getAnswer={getAnswer}
         userLife={userLife}
+        animationEnd={animationEnd}
       ></GuessOptions>
       <div className={styles.gameFooter}>
         <button

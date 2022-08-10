@@ -1,7 +1,7 @@
 import Image from "next/image";
 import uniqid from "uniqid";
 import styles from "../../styles/GuessOptions.module.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function GuessOptions(props) {
   let {
@@ -13,6 +13,7 @@ export default function GuessOptions(props) {
     selectedChampionAbility,
     getAnswer,
     userLife,
+    animationEnd,
   } = props;
 
   const handleImageClick = (ability, abilityRowIndex, abilityIndex) => {
@@ -23,8 +24,6 @@ export default function GuessOptions(props) {
       setCurrentGuessRow([ability]);
     }
   };
-
-  const animationStopStyle = { animationPlayState: "paused" };
 
   return (
     <div className={styles.guessOptionContainer}>
@@ -44,11 +43,12 @@ export default function GuessOptions(props) {
               } else if (currentGuessRow[0].name === ability.name && getAnswer) {
                 classNameHolder = styles.abilityImage + " " + styles.abilityChosenAnimate;
               }
-              if (userLife === 0 && selectedChampionAbility.name === ability.name) {
+              if (animationEnd && selectedChampionAbility.name === ability.name) {
                 classNameHolder = styles.abilityImage + " " + styles.abilityAnswerEnd;
-              } else if (userLife === 0 && currentGuessRow[0].name === ability.name) {
+              } else if (animationEnd && currentGuessRow[0].name === ability.name) {
                 classNameHolder = styles.abilityImage + " " + styles.abilityChosenEnd;
               }
+
               return (
                 <div key={uniqid()} suppressHydrationWarning className={styles.abilityImageContainer}>
                   <img
