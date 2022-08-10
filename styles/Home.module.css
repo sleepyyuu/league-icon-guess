@@ -28,6 +28,10 @@
 }
 
 @media only screen and (max-width: 700px) {
+  .main {
+    height: 75vh;
+  }
+
   .gameHeader {
     height: 4.2rem;
   }
