@@ -146,9 +146,9 @@ export default function Game() {
           backgroundColor: "rgb(24, 24, 24)",
           border: "none",
           borderRadius: "7px",
-          width: isMobile ? "85%" : "33rem",
+          width: isMobile ? "95vw" : "33rem",
           maxWidth: "33rem",
-          height: isMobile ? "39rem" : "45rem",
+          height: isMobile ? "75vh" : "45rem",
           padding: "0px",
         }}
         modal
@@ -208,9 +208,9 @@ export default function Game() {
           backgroundColor: "rgb(24, 24, 24)",
           border: "none",
           borderRadius: "7px",
-          width: isMobile ? "85%" : "33rem",
+          width: isMobile ? "95vw" : "33rem",
           maxWidth: "33rem",
-          height: isMobile ? "39rem" : "45rem",
+          height: isMobile ? "75vh" : "45rem",
           padding: "0px",
         }}
         modal
