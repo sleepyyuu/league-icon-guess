@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { isMobile } from "react-device-detect";
+import uniqid from "uniqid";
 
 //useEffect check if life === 0. popup with newgame option, dependency array life
 
@@ -29,6 +30,7 @@ export default function Game() {
       height={100}
       className={styles.exampleImage + " " + styles.exampleCorrect}
       alt="Blind Dart"
+      key={uniqid()}
     ></img>,
     <img
       src={"https://ddragon.leagueoflegends.com/cdn/12.15.1/img/spell/CaitlynW.png"}
@@ -36,6 +38,7 @@ export default function Game() {
       height={100}
       className={styles.exampleImage + " " + styles.exampleIncorrect}
       alt="Yordle Snap Trap"
+      key={uniqid()}
     ></img>,
   ];
   const checkAnswer = (currentGuess) => {
@@ -227,7 +230,7 @@ export default function Game() {
             </div>
             <button
               onClick={() => {
-                handleNewGame();
+                handleNewGame;
               }}
             >
               Play again
