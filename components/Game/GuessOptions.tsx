@@ -36,6 +36,7 @@ export default function GuessOptions(props) {
         return (
           <div key={uniqid()} className={styles.abilityRow}>
             {abilityRow.map((ability, abilityIndex) => {
+              console.log("Render");
               let imageSource = "";
               if (ability.id) {
                 imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/spell/" + ability.image.full;
@@ -57,7 +58,7 @@ export default function GuessOptions(props) {
                 classNameHolder += " " + styles.abilityImageAnimateFade;
               }
               return (
-                <div key={uniqid()} suppressHydrationWarning className={styles.abilityImageContainer}>
+                <div key={imageSource} suppressHydrationWarning className={styles.abilityImageContainer}>
                   <img
                     src={imageSource}
                     width={110}
