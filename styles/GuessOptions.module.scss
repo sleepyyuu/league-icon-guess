@@ -54,6 +54,7 @@
   background-position: 0 0, 100% 0, 100% 100%, 0 100%;
   animation: bg 0.75s cubic-bezier(1, 1, 1, 1) 1;
   animation-play-state: running;
+  animation-iteration-count: 1;
 }
 
 .abilityChosenAnimate {
@@ -65,4 +66,5 @@
   background-position: 0 0, 100% 0, 100% 100%, 0 100%;
   animation: bg 0.75s cubic-bezier(1, 1, 1, 1) 1;
   animation-play-state: running;
+  animation-iteration-count: 1;
 }

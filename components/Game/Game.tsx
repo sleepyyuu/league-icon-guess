@@ -220,21 +220,24 @@ export default function Game() {
           </button>
           <div className={styles.modalHeader}>Your Stats</div>
           <div className={styles.modalContent}>
-            <div>played</div>
-            <div>Highest streak</div>
-            <div>idk</div>
-            <div>
-              Examples
-              <div>Blinding dart</div>
-              <div>90 Caliber net</div>
+            <div className={styles.resultScreenContainer}>
+              <div>played</div>
+              <div>Highest streak</div>
+              <div>idk</div>
+              <div>
+                placeholder zzzzzzzzz
+                <div></div>
+                <div></div>
+              </div>
+              <button
+                className={styles.playAgainButton}
+                onClick={() => {
+                  handleNewGame();
+                }}
+              >
+                Play again
+              </button>
             </div>
-            <button
-              onClick={() => {
-                handleNewGame();
-              }}
-            >
-              Play again
-            </button>
           </div>
         </div>
       </Popup>

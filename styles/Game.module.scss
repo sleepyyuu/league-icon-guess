@@ -206,3 +206,24 @@
   animation-play-state: running;
   animation-iteration-count: infinite;
 }
+
+.resultScreenContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.playAgainButton {
+  margin-top: 50px;
+  padding: 15px;
+  font-size: 1.2rem;
+  border: none;
+  background-color: #6ab2df;
+  border-radius: 6px;
+}
+
+.playAgainButton:hover {
+  background-color: #92caec;
+  cursor: pointer;
+}
