@@ -71,6 +71,7 @@ export default function Game() {
 
   useEffect(() => {
     setFirstFadeAnimation(true);
+    setAnimationEnd(false);
     let abilityAmount = 0;
     if (isMobile) {
       //mobilescreen, handle
