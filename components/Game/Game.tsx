@@ -262,7 +262,7 @@ export default function Game() {
         <button
           className={styles.newGameButton}
           onClick={() => {
-            if (userLife === 0) {
+            if (userLife === 0 || !getAnswer) {
               return;
             }
             setGameCount(gameCount + 1);

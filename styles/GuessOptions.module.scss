@@ -30,11 +30,6 @@
   filter: hue-rotate(0deg);
   height: 110px;
   width: 110px;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(to right, #0c0c0c 100%, #0c0c0c 100%), linear-gradient(to bottom, #0c0c0c 100%, #0c0c0c 100%),
-    linear-gradient(to right, #0c0c0c 100%, #0c0c0c 100%), linear-gradient(to bottom, #0c0c0c 100%, #0c0c0c 100%);
-  background-size: 100% 5px, 5px 100%, 100% 5px, 5px 100%;
-  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
 }
 
 .abilityImageContainerSelected {
@@ -54,7 +49,14 @@
   background-position: 0 0, 100% 0, 100% 100%, 0 100%;
   animation: bg 0.75s cubic-bezier(1, 1, 1, 1) 1;
   animation-play-state: running;
-  animation-iteration-count: 1;
+}
+
+.abilityAnswerEnd {
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #6fda6f 100%, #6fda6f 100%), linear-gradient(to bottom, #6fda6f 100%, #6fda6f 100%),
+    linear-gradient(to right, #6fda6f 100%, #6fda6f 100%), linear-gradient(to bottom, #6fda6f 100%, #6fda6f 100%);
+  background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
 }
 
 .abilityChosenAnimate {
@@ -66,5 +68,12 @@
   background-position: 0 0, 100% 0, 100% 100%, 0 100%;
   animation: bg 0.75s cubic-bezier(1, 1, 1, 1) 1;
   animation-play-state: running;
-  animation-iteration-count: 1;
+}
+
+.abilityChosenEnd {
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #e24641 100%, #e24641 100%), linear-gradient(to bottom, #e24641 100%, #e24641 100%),
+    linear-gradient(to right, #e24641 100%, #e24641 100%), linear-gradient(to bottom, #e24641 100%, #e24641 100%);
+  background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
 }

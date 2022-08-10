@@ -1,6 +1,7 @@
 import Image from "next/image";
 import uniqid from "uniqid";
 import styles from "../../styles/GuessOptions.module.scss";
+import { useEffect } from "react";
 
 export default function GuessOptions(props) {
   let {
@@ -23,6 +24,8 @@ export default function GuessOptions(props) {
     }
   };
 
+  const animationStopStyle = { animationPlayState: "paused" };
+
   return (
     <div className={styles.guessOptionContainer}>
       {abilityOptions.map((abilityRow, abilityRowIndex) => {
@@ -35,27 +38,29 @@ export default function GuessOptions(props) {
               } else {
                 imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/passive/" + ability.image.full;
               }
-
-              let imageElement = (
-                <img
-                  src={imageSource}
-                  width={110}
-                  height={110}
-                  onClick={() => {
-                    handleImageClick(ability, abilityRowIndex, abilityIndex);
-                  }}
-                  className={
-                    selectedChampionAbility.name === ability.name && getAnswer
-                      ? styles.abilityAnswerAnimate + " " + styles.abilityImage
-                      : currentGuessRow[0].name === ability.name && getAnswer
-                      ? styles.abilityChosenAnimate + " " + styles.abilityImage
-                      : styles.abilityImage
-                  }
-                ></img>
-              );
+              let classNameHolder = styles.abilityImage;
+              if (selectedChampionAbility.name === ability.name && getAnswer) {
+                classNameHolder = styles.abilityImage + " " + styles.abilityAnswerAnimate;
+              } else if (currentGuessRow[0].name === ability.name && getAnswer) {
+                classNameHolder = styles.abilityImage + " " + styles.abilityChosenAnimate;
+              }
+              if (userLife === 0 && selectedChampionAbility.name === ability.name) {
+                classNameHolder = styles.abilityImage + " " + styles.abilityAnswerEnd;
+              } else if (userLife === 0 && currentGuessRow[0].name === ability.name) {
+                classNameHolder = styles.abilityImage + " " + styles.abilityChosenEnd;
+              }
               return (
                 <div key={uniqid()} suppressHydrationWarning className={styles.abilityImageContainer}>
-                  {imageElement}
+                  <img
+                    src={imageSource}
+                    width={110}
+                    height={110}
+                    onClick={() => {
+                      handleImageClick(ability, abilityRowIndex, abilityIndex);
+                    }}
+                    className={classNameHolder}
+                    key={imageSource}
+                  ></img>
                 </div>
               );
             })}
