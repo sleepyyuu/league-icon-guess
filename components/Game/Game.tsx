@@ -157,8 +157,10 @@ export default function Game() {
           maxWidth: "33rem",
           height: isMobile ? "75vh" : "45rem",
           padding: "0px",
+          animation: "anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards",
         }}
         modal
+        className={styles.popupScreen}
         open={showInitialMenu}
         closeOnDocumentClick
         onClose={() => {
@@ -219,6 +221,7 @@ export default function Game() {
           maxWidth: "33rem",
           height: isMobile ? "75vh" : "45rem",
           padding: "0px",
+          animation: "anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards",
         }}
         modal
         open={showEndMenu}
