@@ -258,7 +258,7 @@ export default function Game() {
               </div>
               <div className={styles.roleStatContainer}>
                 <div>Role Distribution</div>
-                <div>Your best role's guess is zzzz work on later</div>
+                <div>Your best roles guess is zzzz work on later</div>
               </div>
               <div className={styles.playAgainButtonContainer}>
                 <button
