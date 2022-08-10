@@ -16,10 +16,7 @@ export default function GuessOptions(props) {
     animationEnd,
     gameCount,
     firstFadeAnimation,
-    setFirstFadeAnimation,
   } = props;
-
-  const [iconFade, setIconFade] = useState(false);
 
   const handleImageClick = (ability, abilityRowIndex, abilityIndex) => {
     if (getAnswer || userLife === 0) {
@@ -36,7 +33,6 @@ export default function GuessOptions(props) {
         return (
           <div key={uniqid()} className={styles.abilityRow}>
             {abilityRow.map((ability, abilityIndex) => {
-              console.log("Render");
               let imageSource = "";
               if (ability.id) {
                 imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/spell/" + ability.image.full;

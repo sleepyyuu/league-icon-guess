@@ -312,7 +312,6 @@ export default function Game() {
         animationEnd={animationEnd}
         results={results}
         firstFadeAnimation={firstFadeAnimation}
-        setFirstFadeAnimation={setFirstFadeAnimation}
       ></GuessOptions>
       <div className={styles.gameFooter}>
         <button
