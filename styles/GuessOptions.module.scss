@@ -16,6 +16,27 @@
   }
 }
 
+@keyframes bg2 {
+  0% {
+    background-size: 0 3px, 3px 0, 0 3px, 3px 0;
+  }
+  17% {
+    background-size: 0 3px, 3px 0, 100% 3px, 3px 0;
+  }
+  34% {
+    background-size: 0 3px, 3px 0, 100% 3px, 3px 100%;
+  }
+  51% {
+    background-size: 100% 3px, 3px 0, 100% 3px, 3px 100%;
+  }
+  68% {
+    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  }
+  100% {
+    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  }
+}
+
 .guessOptionContainer {
   display: grid;
   grid-template-rows: repeat(3, 1fr);
@@ -66,7 +87,7 @@
     linear-gradient(to right, #e24641 100%, #e24641 100%), linear-gradient(to bottom, #e24641 100%, #e24641 100%);
   background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
   background-position: 0 0, 100% 0, 100% 100%, 0 100%;
-  animation: bg 0.75s cubic-bezier(1, 1, 1, 1) 1;
+  animation: bg2 0.75s cubic-bezier(1, 1, 1, 1) 1;
   animation-play-state: running;
 }
 

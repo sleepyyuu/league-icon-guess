@@ -121,6 +121,10 @@
   border: 1px solid #131313;
 }
 
+.modalClose:focus {
+  outline: none;
+}
+
 .modalClose:hover {
   background: #4b4b4b;
 }
