@@ -1,3 +1,45 @@
+@keyframes bg {
+  0% {
+    background-size: 0 3px, 3px 0, 0 3px, 3px 0;
+  }
+  17% {
+    background-size: 100% 3px, 3px 0, 0 3px, 3px 0;
+  }
+  34% {
+    background-size: 100% 3px, 3px 100%, 0 3px, 3px 0;
+  }
+  51% {
+    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 0;
+  }
+  68% {
+    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  }
+  100% {
+    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  }
+}
+
+@keyframes bg2 {
+  0% {
+    background-size: 0 3px, 3px 0, 0 3px, 3px 0;
+  }
+  17% {
+    background-size: 0 3px, 3px 0, 100% 3px, 3px 0;
+  }
+  34% {
+    background-size: 0 3px, 3px 0, 100% 3px, 3px 100%;
+  }
+  51% {
+    background-size: 100% 3px, 3px 0, 100% 3px, 3px 100%;
+  }
+  68% {
+    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  }
+  100% {
+    background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  }
+}
+
 .guessedBoxContainer {
   display: flex;
 }
@@ -57,8 +99,8 @@
 }
 
 .modal {
-  padding: 15px 15px;
-  width: 90%;
+  padding: 10px 15px;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
   background-color: rgb(24, 24, 24);
@@ -84,16 +126,83 @@
 }
 
 .modalHeader {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 700;
   padding: 0px;
   color: white;
 }
 
 .modalContent {
-  text-align: center;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 300;
+  text-align: left;
+  font-size: 1.1rem;
   width: 100%;
   padding: 10px 5px;
   color: white;
   background-color: rgb(24, 24, 24);
+}
+
+.infoContainer {
+  padding-bottom: 15px;
+  border-bottom: 1px outset rgb(153, 153, 153);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exampleContainer {
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 15px;
+  align-items: center;
+  gap: 10px;
+}
+
+.exampleName {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.exampleRow {
+  font-weight: 400;
+  display: flex;
+  gap: 45px;
+  font-size: 0.8rem;
+  margin-top: 10px;
+}
+
+.exampleImage {
+  margin-top: 15px;
+  padding: 5px;
+}
+
+.exampleColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.exampleCorrect {
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #6fda6f 100%, #6fda6f 100%), linear-gradient(to bottom, #6fda6f 100%, #6fda6f 100%),
+    linear-gradient(to right, #6fda6f 100%, #6fda6f 100%), linear-gradient(to bottom, #6fda6f 100%, #6fda6f 100%);
+  background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  animation: bg 1.75s cubic-bezier(1, 1, 1, 1) 1;
+  animation-play-state: running;
+  animation-iteration-count: infinite;
+}
+
+.exampleIncorrect {
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #e24641 100%, #e24641 100%), linear-gradient(to bottom, #e24641 100%, #e24641 100%),
+    linear-gradient(to right, #e24641 100%, #e24641 100%), linear-gradient(to bottom, #e24641 100%, #e24641 100%);
+  background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  animation: bg2 1.75s cubic-bezier(1, 1, 1, 1) 1;
+  animation-play-state: running;
+  animation-iteration-count: infinite;
 }

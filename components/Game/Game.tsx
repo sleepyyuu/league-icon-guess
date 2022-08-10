@@ -22,7 +22,20 @@ export default function Game() {
   const [showEndMenu, setShowEndMenu] = useState(false);
 
   const championArray = Object.keys(championListData.data);
-
+  const exampleAbilities = [
+    <img
+      src={"https://ddragon.leagueoflegends.com/cdn/12.15.1/img/spell/BlindingDart.png"}
+      width={100}
+      height={100}
+      className={styles.exampleImage + " " + styles.exampleCorrect}
+    ></img>,
+    <img
+      src={"https://ddragon.leagueoflegends.com/cdn/12.15.1/img/spell/CaitlynW.png"}
+      width={100}
+      height={100}
+      className={styles.exampleImage + " " + styles.exampleIncorrect}
+    ></img>,
+  ];
   const checkAnswer = (currentGuess) => {
     setGetAnswer(true);
     if (selectedChampionAbility.name === currentGuess.name) {
@@ -149,15 +162,27 @@ export default function Game() {
           >
             &times;
           </button>
-          <div className={styles.modalHeader}>How To Play</div>
+          <div className={styles.modalHeader}>INFO</div>
           <div className={styles.modalContent}>
-            <div>Click on the icon that matches the name</div>
-            <div>Aim for a high streak within 3 lives.</div>
-            <div>One shot only for each question</div>
-            <div>
-              Examples
-              <div>Blinding dart</div>
-              <div>90 Caliber net</div>
+            <div className={styles.infoContainer}>
+              <div>Aim for a high streak within 3 lives.</div>
+              <div>Click on the icon that matches the name.</div>
+              <div>One guess only for each question.</div>
+              <div>Includes both abilities AND passives.</div>
+            </div>
+            <div className={styles.exampleContainer}>
+              <div>EXAMPLE</div>
+              <div className={styles.exampleName}>
+                <div style={{ fontWeight: "700", fontFamily: "Roboto" }}>Yordle Snap Trap</div>
+              </div>
+              <div className={styles.exampleRow}>
+                <div className={styles.exampleColumn}>
+                  <div>Correct Selection</div> <div>{exampleAbilities[0]}</div>
+                </div>
+                <div className={styles.exampleColumn}>
+                  <div>Incorrect Selection</div> <div>{exampleAbilities[1]}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
