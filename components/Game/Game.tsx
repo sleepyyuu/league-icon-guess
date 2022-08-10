@@ -230,7 +230,7 @@ export default function Game() {
             </div>
             <button
               onClick={() => {
-                handleNewGame;
+                handleNewGame();
               }}
             >
               Play again
