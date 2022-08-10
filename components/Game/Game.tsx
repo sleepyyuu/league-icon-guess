@@ -148,7 +148,7 @@ export default function Game() {
           borderRadius: "7px",
           width: isMobile ? "85%" : "33rem",
           maxWidth: "33rem",
-          height: isMobile ? "32rem" : "45rem",
+          height: isMobile ? "39rem" : "45rem",
           padding: "0px",
         }}
         modal
@@ -190,6 +190,16 @@ export default function Game() {
               </div>
             </div>
           </div>
+          <div className={styles.playButtonContainer}>
+            <button
+              className={styles.playButton}
+              onClick={() => {
+                setShowInitialMenu(false);
+              }}
+            >
+              Start!
+            </button>
+          </div>
         </div>
       </Popup>
       <Popup
@@ -198,8 +208,9 @@ export default function Game() {
           backgroundColor: "rgb(24, 24, 24)",
           border: "none",
           borderRadius: "7px",
-          maxWidth: "36rem",
-          height: isMobile ? "32rem" : "45rem",
+          width: isMobile ? "85%" : "33rem",
+          maxWidth: "33rem",
+          height: isMobile ? "39rem" : "45rem",
           padding: "0px",
         }}
         modal
@@ -218,25 +229,49 @@ export default function Game() {
           >
             &times;
           </button>
-          <div className={styles.modalHeader}>Your Stats</div>
+          <div className={styles.modalHeader}>
+            <div className={styles.statsHeader}>Your Stats</div>
+          </div>
           <div className={styles.modalContent}>
             <div className={styles.resultScreenContainer}>
-              <div>played</div>
-              <div>Highest streak</div>
-              <div>idk</div>
-              <div>
-                placeholder zzzzzzzzz
-                <div></div>
-                <div></div>
+              <div className={styles.statContainer}>
+                <div className={styles.statDetailContainer}>
+                  <div className={styles.statDetailNumber}>0</div>
+                  <div className={styles.statDetailText}>
+                    <div>Played</div>
+                  </div>
+                </div>
+                <div className={styles.statDetailContainer}>
+                  <div className={styles.statDetailNumber}>0</div>
+                  <div className={styles.statDetailText}>
+                    <div>Current</div>
+                    <div>Streak</div>
+                  </div>
+                </div>
+                <div className={styles.statDetailContainer}>
+                  <div className={styles.statDetailNumber}>0</div>
+                  <div className={styles.statDetailText}>
+                    <div>Highest</div>
+                    <div>Streak</div>
+                  </div>
+                </div>
               </div>
-              <button
-                className={styles.playAgainButton}
-                onClick={() => {
-                  handleNewGame();
-                }}
-              >
-                Play again
-              </button>
+              <div className={styles.roleStatContainer}>
+                <div>Role Distribution</div>
+                <div>Your best role's guess is zzzz work on later</div>
+              </div>
+              <div className={styles.playAgainButtonContainer}>
+                <button
+                  className={styles.playAgainButton}
+                  onClick={() => {
+                    handleNewGame();
+                  }}
+                >
+                  Play again
+                </button>
+              </div>
+
+              <div className={styles.socialContainer}>Share</div>
             </div>
           </div>
         </div>
