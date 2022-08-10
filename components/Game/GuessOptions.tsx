@@ -27,7 +27,7 @@ export default function GuessOptions(props) {
     <div className={styles.guessOptionContainer}>
       {abilityOptions.map((abilityRow, abilityRowIndex) => {
         return (
-          <div key={abilityRowIndex} className={styles.abilityRow}>
+          <div key={uniqid()} className={styles.abilityRow}>
             {abilityRow.map((ability, abilityIndex) => {
               let imageSource = "";
               if (ability.id) {
@@ -54,7 +54,7 @@ export default function GuessOptions(props) {
                 ></img>
               );
               return (
-                <div key={abilityIndex} suppressHydrationWarning className={styles.abilityImageContainer}>
+                <div key={uniqid()} suppressHydrationWarning className={styles.abilityImageContainer}>
                   {imageElement}
                 </div>
               );

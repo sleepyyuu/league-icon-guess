@@ -28,12 +28,14 @@ export default function Game() {
       width={100}
       height={100}
       className={styles.exampleImage + " " + styles.exampleCorrect}
+      alt="Blind Dart"
     ></img>,
     <img
       src={"https://ddragon.leagueoflegends.com/cdn/12.15.1/img/spell/CaitlynW.png"}
       width={100}
       height={100}
       className={styles.exampleImage + " " + styles.exampleIncorrect}
+      alt="Yordle Snap Trap"
     ></img>,
   ];
   const checkAnswer = (currentGuess) => {
