@@ -22,6 +22,7 @@ export default function Game() {
   const [showInitialMenu, setShowInitialMenu] = useState(false);
   const [showEndMenu, setShowEndMenu] = useState(false);
   const [animationEnd, setAnimationEnd] = useState(false);
+  const [firstFadeAnimation, setFirstFadeAnimation] = useState(false);
 
   const championArray = Object.keys(championListData.data);
   const exampleAbilities = [
@@ -69,6 +70,7 @@ export default function Game() {
   };
 
   useEffect(() => {
+    setFirstFadeAnimation(true);
     let abilityAmount = 0;
     if (isMobile) {
       //mobilescreen, handle
@@ -144,6 +146,10 @@ export default function Game() {
       }, 1000);
     }
   }, [userLife]);
+
+  useEffect(() => {
+    setFirstFadeAnimation(false);
+  }, [userLife, userScore]);
 
   return (
     <div>
@@ -303,6 +309,9 @@ export default function Game() {
         getAnswer={getAnswer}
         userLife={userLife}
         animationEnd={animationEnd}
+        results={results}
+        firstFadeAnimation={firstFadeAnimation}
+        setFirstFadeAnimation={setFirstFadeAnimation}
       ></GuessOptions>
       <div className={styles.gameFooter}>
         <button

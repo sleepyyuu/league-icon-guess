@@ -14,7 +14,12 @@ export default function GuessOptions(props) {
     getAnswer,
     userLife,
     animationEnd,
+    gameCount,
+    firstFadeAnimation,
+    setFirstFadeAnimation,
   } = props;
+
+  const [iconFade, setIconFade] = useState(false);
 
   const handleImageClick = (ability, abilityRowIndex, abilityIndex) => {
     if (getAnswer || userLife === 0) {
@@ -48,7 +53,9 @@ export default function GuessOptions(props) {
               } else if (animationEnd && currentGuessRow[0].name === ability.name) {
                 classNameHolder = styles.abilityImage + " " + styles.abilityChosenEnd;
               }
-
+              if (firstFadeAnimation) {
+                classNameHolder += " " + styles.abilityImageAnimateFade;
+              }
               return (
                 <div key={uniqid()} suppressHydrationWarning className={styles.abilityImageContainer}>
                   <img
