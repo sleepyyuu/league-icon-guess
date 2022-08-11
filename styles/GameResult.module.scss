@@ -1,4 +1,5 @@
 .resultScreenContainer {
+  font-family: "Rubik", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,6 +59,7 @@
 }
 
 .playAgainButton {
+  font-family: "Rubik", sans-serif;
   padding: 15px;
   font-size: 1.2rem;
   border: none;
