@@ -1,5 +1,6 @@
 import GuessOptions from "./GuessOptions";
 import GameScoreBoard from "./GameScoreBoard";
+import GameFooter from "./GameFooter";
 import championListData from "../../assets/data/champion.json";
 import GameResult from "./GameResult";
 import styles from "../../styles/Game.module.scss";
@@ -302,37 +303,14 @@ export default function Game() {
         firstFadeAnimation={firstFadeAnimation}
         setFirstFadeAnimation={setFirstFadeAnimation}
       ></GuessOptions>
-      <div className={styles.gameFooter}>
-        <button
-          onClick={() => {
-            setShowInitialMenu(true);
-          }}
-        >
-          toggle modal
-        </button>
-        <button
-          className={styles.newGameButton}
-          onClick={() => {
-            if (userLife === 0 || !getAnswer) {
-              return;
-            }
-            setGameCount(gameCount + 1);
-          }}
-        >
-          next round
-        </button>
-      </div>
-      {userLife === 0 ? (
-        <div>
-          <button
-            onClick={() => {
-              setShowEndMenu(true);
-            }}
-          >
-            result screen
-          </button>
-        </div>
-      ) : null}
+      <GameFooter
+        setShowInitialMenu={setShowInitialMenu}
+        userLife={userLife}
+        getAnswer={getAnswer}
+        gameCount={gameCount}
+        setGameCount={setGameCount}
+        setShowEndMenu={setShowEndMenu}
+      ></GameFooter>
     </div>
   );
 }

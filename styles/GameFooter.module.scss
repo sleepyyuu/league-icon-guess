@@ -1,0 +1,80 @@
+.gameFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.newGameButtonCircle {
+  position: relative;
+}
+
+.newGameButtonCircle:after {
+  content: "";
+  display: block;
+  width: 2.8rem;
+  height: 2.9rem;
+  border-top-right-radius: 44%;
+  border-bottom-right-radius: 44%;
+  position: absolute;
+  left: -3px;
+  background: rgb(26, 25, 25);
+  top: 50%;
+  transform: translateY(08%);
+  border-right: 4px solid #0d8f8f;
+  z-index: 99;
+}
+
+.newGameButton {
+  position: relative;
+  width: 8.8rem;
+  height: 2.8rem;
+  margin-top: 5px;
+  font-size: 1.2rem;
+  background-color: #1e2328;
+  border: 3px solid #07b1b2;
+  padding: 0;
+  text-align: center;
+  background-size: 100% 50%;
+  color: white;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.newGameButton:before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  left: 100%;
+  top: -3px;
+  border: 25px solid transparent;
+  border-left: 27px solid #12a0a0;
+  background-color: transparent;
+}
+
+.newGameButton:after {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  left: 98.7%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 22px solid transparent;
+  background-color: transparent;
+  border-left: 24px solid #1e2328;
+}
+
+.newGameButton:hover {
+  background-color: #82bee4;
+  cursor: pointer;
+}
+
+.showEndMenu {
+  visibility: visible;
+}
+
+.hideEndMenu {
+  visibility: hidden;
+}
