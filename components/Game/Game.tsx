@@ -30,19 +30,19 @@ export default function Game() {
   const championArray = Object.keys(championListData.data);
   const exampleAbilities = [
     <img
-      src={"https://ddragon.leagueoflegends.com/cdn/12.15.1/img/spell/BlindingDart.png"}
-      width={100}
-      height={100}
-      className={styles.exampleImage + " " + styles.exampleCorrect}
-      alt="Blind Dart"
-      key={uniqid()}
-    ></img>,
-    <img
       src={"https://ddragon.leagueoflegends.com/cdn/12.15.1/img/spell/CaitlynW.png"}
       width={100}
       height={100}
-      className={styles.exampleImage + " " + styles.exampleIncorrect}
+      className={styles.exampleImage + " " + styles.exampleCorrect}
       alt="Yordle Snap Trap"
+      key={uniqid()}
+    ></img>,
+    <img
+      src={"https://ddragon.leagueoflegends.com/cdn/12.15.1/img/spell/BlindingDart.png"}
+      width={100}
+      height={100}
+      className={styles.exampleImage + " " + styles.exampleIncorrect}
+      alt="Blind Dart"
       key={uniqid()}
     ></img>,
   ];
@@ -232,6 +232,7 @@ export default function Game() {
             </div>
           </div>
           <div className={styles.playButtonContainer}>
+            <div className={styles.playButtonShadow}></div>
             <button
               className={styles.playButton}
               onClick={() => {
