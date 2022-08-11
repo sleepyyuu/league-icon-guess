@@ -24,6 +24,8 @@ export default function Game() {
   const [showEndMenu, setShowEndMenu] = useState(false);
   const [animationEnd, setAnimationEnd] = useState(false);
   const [firstFadeAnimation, setFirstFadeAnimation] = useState(false);
+  const [highestStreak, setHighestStreak] = useState(0);
+  const [numGamesPlayed, setNumGamesPlayed] = useState(0);
 
   const championArray = Object.keys(championListData.data);
   const exampleAbilities = [
@@ -61,6 +63,18 @@ export default function Game() {
     setUserLife(3);
     setUserScore(0);
     setShowEndMenu(false);
+    pullFromLocalStorage();
+  };
+
+  const pullFromLocalStorage = () => {
+    let storedGamesPlayed = localStorage.getItem("numPlayed");
+    let storedHighestStreak = localStorage.getItem("highestStreak");
+    if (storedGamesPlayed) {
+      setNumGamesPlayed(parseInt(storedGamesPlayed, 10));
+    }
+    if (storedHighestStreak) {
+      setHighestStreak(parseInt(storedHighestStreak, 10));
+    }
   };
 
   const shuffleArray = (array) => {
@@ -138,10 +152,12 @@ export default function Game() {
 
   useEffect(() => {
     setShowInitialMenu(true);
+    pullFromLocalStorage();
   }, []);
 
   useEffect(() => {
     if (userLife === 0) {
+      setNumGamesPlayed(numGamesPlayed + 1);
       setTimeout(() => {
         setShowEndMenu(true);
         setAnimationEnd(true);
@@ -152,6 +168,14 @@ export default function Game() {
   useEffect(() => {
     setFirstFadeAnimation(false);
   }, [userLife, userScore]);
+
+  useEffect(() => {
+    if (userScore > highestStreak) {
+      localStorage.setItem("highestStreak", "" + userScore);
+      setHighestStreak(userScore);
+    }
+    localStorage.setItem("numPlayed", "" + numGamesPlayed);
+  }, [numGamesPlayed]);
 
   return (
     <div>
@@ -251,7 +275,12 @@ export default function Game() {
             <div className={styles.statsHeader}>Your Stats</div>
           </div>
           <div className={styles.modalContent}>
-            <GameResult userScore={userScore} handleNewGame={handleNewGame}></GameResult>
+            <GameResult
+              userScore={userScore}
+              handleNewGame={handleNewGame}
+              highestStreak={highestStreak}
+              numGamesPlayed={numGamesPlayed}
+            ></GameResult>
           </div>
         </div>
       </Popup>
