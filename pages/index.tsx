@@ -9,6 +9,7 @@ export default function Home() {
       <Head>
         <title>LoL Skill Issue</title>
         <meta name="description" content="League of Legends ability/passive icon guessing game." />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
