@@ -85,6 +85,7 @@ export default function Game() {
   };
 
   useEffect(() => {
+    setResults(false);
     setAnimationEnd(false);
     let abilityAmount = 0;
     if (isMobile) {
@@ -280,7 +281,7 @@ export default function Game() {
           </div>
         </div>
       </Popup>
-      <GameScoreBoard userLife={userLife} userScore={userScore}></GameScoreBoard>
+      <GameScoreBoard userLife={userLife} userScore={userScore} results={results}></GameScoreBoard>
       <div className={styles.gameFooter}>
         <div className={styles.question}>
           Which of these is <div className={styles.abilityName}>{selectedChampionAbility ? selectedChampionAbility.name + "?" : ""}</div>

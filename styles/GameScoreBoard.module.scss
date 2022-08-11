@@ -3,7 +3,7 @@
   justify-content: space-between;
   font-family: "Rubik", sans-serif;
   font-weight: 600;
-  color: #afa380;
+  color: #c2b99f;
 }
 
 @media only screen and (max-width: 700px) {
@@ -18,11 +18,38 @@
 }
 
 .scoreNumber {
-  color: white;
+  position: relative;
+  color: #cdbda1;
 }
 
 .goldIconContainer {
   padding: 2px 0 0px 3px;
+}
+
+@keyframes fade-out-down {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+}
+
+.addScoreAnimation {
+  position: absolute;
+  top: -15px;
+  left: -1px;
+  animation: fade-out-down 2s ease;
+  opacity: 0;
+}
+
+.addScoreAnimationHide {
+  position: absolute;
+  top: -15px;
+  left: -1px;
+  opacity: 0;
 }
 
 .goldIcon {
@@ -30,6 +57,23 @@
 
 .lifeContainer {
   display: flex;
+}
+
+@keyframes fadeHealth {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.healthIcon {
+}
+
+.healthIconNoShow {
+  animation: fadeHealth 0.3s;
+  opacity: 0;
 }
 
 .livesWord {
