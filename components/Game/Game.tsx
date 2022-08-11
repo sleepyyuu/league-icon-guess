@@ -151,6 +151,12 @@ export default function Game() {
   }, [gameCount]);
 
   useEffect(() => {
+    const documentHeight = () => {
+      const doc = document.documentElement;
+      doc.style.setProperty("--doc-height", `${window.innerHeight}px`);
+    };
+    window.addEventListener("resize", documentHeight);
+    documentHeight();
     setShowInitialMenu(true);
     pullFromLocalStorage();
   }, []);
@@ -164,8 +170,6 @@ export default function Game() {
       }, 1000);
     }
   }, [userLife]);
-
-  useEffect(() => {}, [userLife, userScore]);
 
   useEffect(() => {
     if (userScore > highestStreak) {
