@@ -5,16 +5,21 @@ export default function GameFooter(props) {
 
   return (
     <div className={styles.gameFooter}>
-      <div>
-        <button
-          onClick={() => {
-            setShowInitialMenu(true);
-          }}
-        >
-          toggle modal
-        </button>
+      <div className={styles.endMenuContainer}>
+        {
+          <div className={userLife === 0 ? styles.showEndMenu : styles.hideEndMenu}>
+            <button
+              className={styles.endMenuButton}
+              onClick={() => {
+                setShowEndMenu(true);
+              }}
+            >
+              📊
+            </button>
+          </div>
+        }
       </div>
-      <div>
+      <div className={styles.newGameButtonAllContainer}>
         <div className={styles.newGameButtonCircle}></div>
         <button
           className={styles.newGameButton}
@@ -25,21 +30,19 @@ export default function GameFooter(props) {
             setGameCount(gameCount + 1);
           }}
         >
-          next round
+          Next!
         </button>
       </div>
-      <div>
-        {
-          <div className={userLife === 0 ? styles.showEndMenu : styles.hideEndMenu}>
-            <button
-              onClick={() => {
-                setShowEndMenu(true);
-              }}
-            >
-              result screen
-            </button>
-          </div>
-        }
+
+      <div className={styles.initialMenuContainer}>
+        <button
+          className={styles.initialMenuButton}
+          onClick={() => {
+            setShowInitialMenu(true);
+          }}
+        >
+          ❓
+        </button>
       </div>
     </div>
   );
