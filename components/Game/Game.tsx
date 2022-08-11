@@ -271,7 +271,7 @@ export default function Game() {
             &times;
           </button>
           <div className={styles.modalHeader}>
-            <div className={styles.statsHeader}>Your Stats</div>
+            <div className={styles.statsHeader}>STATS</div>
           </div>
           <div className={styles.modalContent}>
             <GameResult
