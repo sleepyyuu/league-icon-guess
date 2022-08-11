@@ -13,7 +13,7 @@
 
 .gameHeader {
   border-bottom: 1px outset rgb(151, 151, 151);
-  height: 4.4rem;
+  height: 4.9rem;
   width: 100%;
 }
 
@@ -35,7 +35,7 @@
   }
 
   .gameHeader {
-    height: 3.5rem;
+    height: 4.1rem;
   }
   .gameTitle {
     font-size: 2.4rem;
