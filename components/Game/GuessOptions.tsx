@@ -16,6 +16,7 @@ export default function GuessOptions(props) {
     animationEnd,
     gameCount,
     firstFadeAnimation,
+    setFirstFadeAnimation,
   } = props;
 
   const handleImageClick = (ability, abilityRowIndex, abilityIndex) => {
@@ -24,8 +25,10 @@ export default function GuessOptions(props) {
     } else {
       checkAnswer(ability);
       setCurrentGuessRow([ability]);
+      setFirstFadeAnimation(false);
     }
   };
+  console.log("render");
 
   return (
     <div className={styles.guessOptionContainer}>
@@ -54,7 +57,7 @@ export default function GuessOptions(props) {
                 classNameHolder += " " + styles.abilityImageAnimateFade;
               }
               return (
-                <div key={imageSource} suppressHydrationWarning className={styles.abilityImageContainer}>
+                <div key={imageSource} className={styles.abilityImageContainer}>
                   <img
                     src={imageSource}
                     width={110}

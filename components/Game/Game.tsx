@@ -85,7 +85,6 @@ export default function Game() {
   };
 
   useEffect(() => {
-    setFirstFadeAnimation(true);
     setAnimationEnd(false);
     let abilityAmount = 0;
     if (isMobile) {
@@ -148,6 +147,7 @@ export default function Game() {
     } else {
       setAbilityOptions([abilityOptionsArray.slice(0, 5), abilityOptionsArray.slice(5, 10), abilityOptionsArray.slice(10, 15)]);
     }
+    setFirstFadeAnimation(true);
   }, [gameCount]);
 
   useEffect(() => {
@@ -165,9 +165,7 @@ export default function Game() {
     }
   }, [userLife]);
 
-  useEffect(() => {
-    setFirstFadeAnimation(false);
-  }, [userLife, userScore]);
+  useEffect(() => {}, [userLife, userScore]);
 
   useEffect(() => {
     if (userScore > highestStreak) {
@@ -304,6 +302,7 @@ export default function Game() {
         animationEnd={animationEnd}
         results={results}
         firstFadeAnimation={firstFadeAnimation}
+        setFirstFadeAnimation={setFirstFadeAnimation}
       ></GuessOptions>
       <div className={styles.gameFooter}>
         <button
