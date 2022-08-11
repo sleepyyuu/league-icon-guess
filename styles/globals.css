@@ -30,7 +30,7 @@ body {
   font-size: 1.1rem;
   color: white;
   background: rgb(26, 25, 25);
-  padding-bottom: env(safe-area-inset-bottom);
+
   overflow: hidden;
 }
 
@@ -45,6 +45,5 @@ a {
 
 @media only screen and (max-width: 700px) {
   body {
-    height: var(--doc-height);
   }
 }
