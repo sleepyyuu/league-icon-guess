@@ -30,7 +30,29 @@ export default function GameResult(props) {
       </div>
       <div className={styles.roleStatContainer}>
         <div>Role Distribution</div>
-        <div>Your best roles guess is zzzz work on later</div>
+        <div>Coming soon!</div>
+        <div className={styles.roleDetailContainer}>
+          <div className={styles.roleDetail}>
+            <div className={styles.roleDetailText}>TOP</div>
+            <div className={styles.roleDetailNumber}>0%</div>
+          </div>
+          <div className={styles.roleDetail}>
+            <div className={styles.roleDetailText}>JUNG</div>
+            <div className={styles.roleDetailNumber}>0%</div>
+          </div>
+          <div className={styles.roleDetail}>
+            <div className={styles.roleDetailText}>MID</div>
+            <div className={styles.roleDetailNumber}>0%</div>
+          </div>
+          <div className={styles.roleDetail}>
+            <div className={styles.roleDetailText}>ADC</div>
+            <div className={styles.roleDetailNumber}>0%</div>
+          </div>
+          <div className={styles.roleDetail}>
+            <div className={styles.roleDetailText}>SUP</div>
+            <div className={styles.roleDetailNumber}>0%</div>
+          </div>
+        </div>
       </div>
       <div className={styles.playAgainButtonContainer}>
         <button

@@ -28,7 +28,6 @@ export default function GuessOptions(props) {
       setFirstFadeAnimation(false);
     }
   };
-  console.log("render");
 
   return (
     <div className={styles.guessOptionContainer}>
