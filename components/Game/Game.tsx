@@ -251,7 +251,12 @@ export default function Game() {
           height: isMobile ? "75vh" : "45rem",
           padding: "0px",
           animation: "anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards",
-          position: "absolute",
+          position: "fixed",
+
+          top: "0",
+          bottom: "0",
+          left: "0",
+          right: "0",
         }}
         modal
         open={showEndMenu}
