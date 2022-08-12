@@ -150,7 +150,10 @@ export default function Game() {
     } else {
       setAbilityOptions([abilityOptionsArray.slice(0, 5), abilityOptionsArray.slice(5, 10), abilityOptionsArray.slice(10, 15)]);
     }
-    setFirstFadeAnimation(true);
+
+    if (userLife !== 3 || userScore !== 0) {
+      setFirstFadeAnimation(true);
+    }
   }, [gameCount]);
 
   useEffect(() => {
