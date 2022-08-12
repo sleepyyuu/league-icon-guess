@@ -44,8 +44,12 @@ export default function GuessOptions(props) {
               let classNameHolder = styles.abilityImage;
               if (selectedChampionAbility.name === ability.name && getAnswer) {
                 classNameHolder = styles.abilityImage + " " + styles.abilityAnswerAnimate;
+                if (currentGuessRow[0].name === selectedChampionAbility.name) {
+                  classNameHolder += " " + styles.abilityRightBounceAnimation;
+                }
               } else if (currentGuessRow[0].name === ability.name && getAnswer) {
                 classNameHolder = styles.abilityImage + " " + styles.abilityChosenAnimate;
+                classNameHolder += " " + styles.abilityWrongBounceAnimation;
               }
               if (animationEnd && selectedChampionAbility.name === ability.name) {
                 classNameHolder = styles.abilityImage + " " + styles.abilityAnswerEnd;
