@@ -287,7 +287,7 @@ export default function Game() {
           </div>
         </div>
       </Popup>
-      <GameScoreBoard userLife={userLife} userScore={userScore} results={results}></GameScoreBoard>
+      {showButtons ? <GameScoreBoard userLife={userLife} userScore={userScore} results={results}></GameScoreBoard> : null}
       {showButtons ? (
         <div className={styles.gameFooter}>
           <div className={styles.question}>
