@@ -21,6 +21,7 @@ export default function Game() {
   const [userScore, setUserScore] = useState(0);
   const [getAnswer, setGetAnswer] = useState(false);
   const [results, setResults] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
   const [showInitialMenu, setShowInitialMenu] = useState(false);
   const [showEndMenu, setShowEndMenu] = useState(false);
   const [animationEnd, setAnimationEnd] = useState(false);
@@ -155,6 +156,7 @@ export default function Game() {
   useEffect(() => {
     setShowInitialMenu(true);
     pullFromLocalStorage();
+    setShowButtons(true);
   }, []);
 
   useEffect(() => {
@@ -310,6 +312,7 @@ export default function Game() {
         gameCount={gameCount}
         setGameCount={setGameCount}
         setShowEndMenu={setShowEndMenu}
+        showButtons={showButtons}
       ></GameFooter>
     </div>
   );

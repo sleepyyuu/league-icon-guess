@@ -1,9 +1,9 @@
 import styles from "../../styles/GameFooter.module.scss";
 
 export default function GameFooter(props) {
-  const { setShowInitialMenu, userLife, getAnswer, gameCount, setGameCount, setShowEndMenu } = props;
+  const { setShowInitialMenu, userLife, getAnswer, gameCount, setGameCount, setShowEndMenu, showButtons } = props;
 
-  return (
+  return showButtons ? (
     <div className={styles.gameFooter}>
       <div className={styles.endMenuContainer}>
         {
@@ -45,5 +45,5 @@ export default function GameFooter(props) {
         </button>
       </div>
     </div>
-  );
+  ) : null;
 }
