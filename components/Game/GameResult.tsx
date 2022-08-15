@@ -65,7 +65,17 @@ export default function GameResult(props) {
         </button>
       </div>
 
-      <div className={styles.socialContainer}>Share</div>
+      <div className={styles.socialContainer}>
+        <div className={styles.shareContainer}>Share</div>
+        <div
+          className={styles.linkContainer}
+          onClick={() => {
+            navigator.clipboard.writeText("testurl.com");
+          }}
+        >
+          testurl.com
+        </div>
+      </div>
     </div>
   );
 }
