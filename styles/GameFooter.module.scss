@@ -16,16 +16,16 @@
 .newGameButtonCircle:after {
   content: "";
   display: block;
-  width: 2.8rem;
-  height: 51px;
-  border-top-right-radius: 44%;
-  border-bottom-right-radius: 44%;
+  width: 3.2rem;
+  height: 50px;
+  border-top-right-radius: 42%;
+  border-bottom-right-radius: 42%;
   position: absolute;
-  left: -3px;
+  left: -4px;
   background: rgb(26, 25, 25);
   top: 50%;
-  transform: translateY(08%);
-  border-right: 4.4px solid #0d8f8f;
+  transform: translateY(10%);
+  border-right: 3.9px solid #0d8f8f;
   z-index: 99;
 }
 
