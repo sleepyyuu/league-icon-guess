@@ -51,12 +51,12 @@ export default function Game() {
     ></img>,
   ];
   const checkAnswer = (currentGuess) => {
-    let answerAnalytics = { [selectedChampionAbility.name]: false };
+    let answerAnalytics = { skillName: [selectedChampionAbility.name], result: false };
     setGetAnswer(true);
     if (selectedChampionAbility.name === currentGuess.name) {
       setResults(true);
       setUserScore(userScore + 1);
-      answerAnalytics[selectedChampionAbility.name] = true;
+      answerAnalytics.result = true;
     } else {
       setResults(false);
       setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
@@ -183,7 +183,7 @@ export default function Game() {
   useEffect(() => {
     if (userLife === 0) {
       const analytics = getAnalytics(app);
-      logEvent(analytics, "finished_game", { amount_played: numGamesPlayed + 1 });
+      logEvent(analytics, "level_end");
       setNumGamesPlayed(numGamesPlayed + 1);
       setTimeout(() => {
         setShowEndMenu(true);
