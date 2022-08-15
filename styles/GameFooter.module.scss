@@ -74,11 +74,13 @@
   border-left: 27px solid #1e2328;
 }
 
-.newGameButton:hover {
+.newGameButton:hover,
+.newGameButton:active {
   background-color: #82bee4;
   cursor: pointer;
 }
-.newGameButton:hover:after {
+.newGameButton:hover:after,
+.newGameButton:active:after {
   border-left: 27px solid #82bee4;
 }
 
