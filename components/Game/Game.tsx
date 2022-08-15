@@ -51,15 +51,19 @@ export default function Game() {
     ></img>,
   ];
   const checkAnswer = (currentGuess) => {
+    let answerAnalytics = { [selectedChampionAbility.name]: false };
     setGetAnswer(true);
     if (selectedChampionAbility.name === currentGuess.name) {
       setResults(true);
       setUserScore(userScore + 1);
+      answerAnalytics[selectedChampionAbility.name] = true;
     } else {
       setResults(false);
       setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
       setUserLife(userLife - 1);
     }
+    const analytics = getAnalytics(app);
+    logEvent(analytics, "user_answer", answerAnalytics);
   };
 
   const handleNewGame = () => {
@@ -170,7 +174,6 @@ export default function Game() {
   const app = initializeApp(firebaseConfig);
   useEffect(() => {
     const analytics = getAnalytics(app);
-    logEvent(analytics, "visited");
     logEvent(analytics, "time", { time: new Date() });
     setShowInitialMenu(true);
     pullFromLocalStorage();
