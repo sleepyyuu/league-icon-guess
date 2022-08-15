@@ -73,15 +73,14 @@
   background-color: transparent;
   border-left: 27px solid #1e2328;
 }
-
-.newGameButton:hover,
-.newGameButton:active {
-  background-color: #82bee4;
-  cursor: pointer;
-}
-.newGameButton:hover:after,
-.newGameButton:active:after {
-  border-left: 27px solid #82bee4;
+@media (hover: hover) {
+  .newGameButton:hover {
+    background-color: #82bee4;
+    cursor: pointer;
+  }
+  .newGameButton:hover:after {
+    border-left: 27px solid #82bee4;
+  }
 }
 
 .initialMenuContainer {
@@ -106,4 +105,13 @@
   font-size: 2.1rem;
   border: 2px solid rgb(88, 86, 86);
   padding: 5px 20px 5px 20px;
+}
+
+.questionIcon {
+  color: #b49f60;
+}
+
+.questionIcon:hover,
+.questionIcon:active {
+  color: #cebc85;
 }

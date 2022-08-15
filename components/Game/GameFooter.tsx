@@ -1,4 +1,5 @@
 import styles from "../../styles/GameFooter.module.scss";
+import { FaQuestionCircle, FaFlagCheckered } from "react-icons/fa";
 
 export default function GameFooter(props) {
   const { setShowInitialMenu, userLife, getAnswer, gameCount, setGameCount, setShowEndMenu, showButtons } = props;
@@ -14,7 +15,7 @@ export default function GameFooter(props) {
                 setShowEndMenu(true);
               }}
             >
-              📊
+              <FaFlagCheckered color={"#b49f60"}></FaFlagCheckered>
             </button>
           </div>
         }
@@ -41,7 +42,7 @@ export default function GameFooter(props) {
             setShowInitialMenu(true);
           }}
         >
-          ❓
+          <FaQuestionCircle className={styles.questionIcon}></FaQuestionCircle>
         </button>
       </div>
     </div>
