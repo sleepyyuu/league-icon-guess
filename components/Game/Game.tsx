@@ -183,7 +183,7 @@ export default function Game() {
   useEffect(() => {
     if (userLife === 0) {
       const analytics = getAnalytics(app);
-      logEvent(analytics, "finished_game");
+      logEvent(analytics, "finished_game", { amount_played: numGamesPlayed + 1 });
       setNumGamesPlayed(numGamesPlayed + 1);
       setTimeout(() => {
         setShowEndMenu(true);
