@@ -172,6 +172,7 @@ export default function Game() {
   useEffect(() => {
     const analytics = getAnalytics(app);
     logEvent(analytics, "visited");
+    logEvent(analytics, "time", { time: new Date() });
     setShowInitialMenu(true);
     pullFromLocalStorage();
     setShowButtons(true);
