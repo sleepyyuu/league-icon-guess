@@ -15,7 +15,7 @@ export default function GameFooter(props) {
                 setShowEndMenu(true);
               }}
             >
-              <FaFlagCheckered color={"#b49f60"}></FaFlagCheckered>
+              <FaFlagCheckered className={styles.resultIcon}></FaFlagCheckered>
             </button>
           </div>
         }

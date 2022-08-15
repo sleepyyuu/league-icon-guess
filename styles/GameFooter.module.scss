@@ -73,15 +73,6 @@
   background-color: transparent;
   border-left: 27px solid #1e2328;
 }
-@media (hover: hover) {
-  .newGameButton:hover {
-    background-color: #82bee4;
-    cursor: pointer;
-  }
-  .newGameButton:hover:after {
-    border-left: 27px solid #82bee4;
-  }
-}
 
 .initialMenuContainer {
   z-index: 105;
@@ -107,11 +98,21 @@
   padding: 5px 20px 5px 20px;
 }
 
-.questionIcon {
+.questionIcon,
+.resultIcon {
   color: #b49f60;
 }
 
-.questionIcon:hover,
-.questionIcon:active {
-  color: #cebc85;
+@media (hover: hover) {
+  .newGameButton:hover {
+    background-color: #82bee4;
+    cursor: pointer;
+  }
+  .newGameButton:hover:after {
+    border-left: 27px solid #82bee4;
+  }
+  .questionIcon:hover,
+  .resultIcon:hover {
+    color: #cebc85;
+  }
 }
