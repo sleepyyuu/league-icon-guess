@@ -168,9 +168,8 @@ export default function Game() {
     measurementId: "G-XNM7NS09ZS",
   };
   const app = initializeApp(firebaseConfig);
-  let analytics;
   useEffect(() => {
-    analytics = getAnalytics(app);
+    const analytics = getAnalytics(app);
     logEvent(analytics, "visited");
     logEvent(analytics, "time", { time: new Date() });
     setShowInitialMenu(true);
@@ -180,6 +179,7 @@ export default function Game() {
 
   useEffect(() => {
     if (userLife === 0) {
+      const analytics = getAnalytics(app);
       logEvent(analytics, "finished_game");
       setNumGamesPlayed(numGamesPlayed + 1);
       setTimeout(() => {
