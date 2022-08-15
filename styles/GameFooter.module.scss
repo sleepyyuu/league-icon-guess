@@ -13,6 +13,81 @@
   position: relative;
 }
 
+@keyframes color {
+  0% {
+    background-color: #222;
+  }
+  50% {
+    background-color: #307a97;
+  }
+  100% {
+    background-color: #222;
+  }
+}
+
+@keyframes colorborder {
+  0% {
+    border-left: 27px solid #222;
+  }
+  50% {
+    border-left: 27px solid #307a97;
+  }
+  100% {
+    border-left: 27px solid #222;
+  }
+}
+
+.newGameButtonPulse {
+  position: relative;
+  width: 8.8rem;
+  height: 50px;
+  margin-top: 5px;
+  font-size: 1.2rem;
+  background-color: #1e2328;
+  border: 3px solid #07b1b2;
+  padding: 0 0 0 52px;
+  text-align: center;
+  background-size: 100% 50%;
+  color: white;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  z-index: 98;
+  animation-name: color;
+  animation-duration: 2.4s;
+  animation-iteration-count: infinite;
+}
+
+.newGameButtonPulse:before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 26px solid transparent;
+  border-left: 32px solid #12a0a0;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  background-color: transparent;
+}
+
+.newGameButtonPulse:after {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 21px solid transparent;
+  background-color: transparent;
+  border-left: 27px solid #1e2328;
+  animation-name: colorborder;
+  animation-duration: 2.4s;
+  animation-iteration-count: infinite;
+}
+
 .newGameButtonCircle:after {
   content: "";
   display: block;
@@ -108,6 +183,7 @@
 .questionIcon,
 .resultIcon {
   color: #b49f60;
+  cursor: pointer;
 }
 
 @media (hover: hover) {

@@ -23,7 +23,7 @@ export default function GameFooter(props) {
       <div className={styles.newGameButtonAllContainer}>
         <div className={styles.newGameButtonCircle}></div>
         <button
-          className={styles.newGameButton}
+          className={getAnswer ? styles.newGameButtonPulse : styles.newGameButton}
           onClick={() => {
             if (userLife === 0 || !getAnswer) {
               return;
