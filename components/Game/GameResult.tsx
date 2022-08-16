@@ -1,4 +1,5 @@
 import styles from "../../styles/GameResult.module.scss";
+import GameCopyClick from "./GameCopyClick";
 import { useEffect } from "react";
 
 export default function GameResult(props) {
@@ -66,15 +67,8 @@ export default function GameResult(props) {
       </div>
 
       <div className={styles.socialContainer}>
-        <div className={styles.shareContainer}>Share</div>
-        <div
-          className={styles.linkContainer}
-          onClick={() => {
-            navigator.clipboard.writeText("testurl.com");
-          }}
-        >
-          testurl.com
-        </div>
+        <div className={styles.shareContainer}>CHALLENGE YOUR FRIENDS!</div>
+        <GameCopyClick></GameCopyClick>
       </div>
     </div>
   );

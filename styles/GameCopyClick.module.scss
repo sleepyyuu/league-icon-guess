@@ -1,0 +1,52 @@
+.copyUrlContainer {
+  position: relative;
+  display: flex;
+  border: 2px solid #b49f60;
+  border-radius: 3px;
+  padding: 7px 6px 6px 6px;
+  gap: 8px;
+  color: rgb(236, 230, 213);
+  background-image: linear-gradient(0deg, #cfb35f, 1%, #0c1d28 26%);
+}
+
+.copyUrl {
+}
+
+.copyUrlIconContainer {
+}
+
+.copyUrlIcon {
+  color: #b49f60;
+  margin-top: 1px;
+}
+
+@keyframes fadecopy {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.copiedBox {
+  position: absolute;
+  left: 62px;
+  top: 47px;
+  animation: fadecopy 2s;
+  opacity: 0;
+}
+
+@media (hover: hover) {
+  .copyUrlIcon:hover {
+    color: #cebc85;
+  }
+  .copyUrlContainer:hover {
+    background-color: #112533;
+    background-image: linear-gradient(0deg, #cfb35f, 1%, #0c1d28 45%);
+    box-shadow: 0px 0px 8px rgb(90, 90, 90);
+  }
+}
