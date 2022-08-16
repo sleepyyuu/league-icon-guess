@@ -200,9 +200,10 @@
 .resultIcon {
   color: #72653e;
   cursor: pointer;
-  animation-name: colorresulticon;
-  animation-duration: 2.4s;
-  animation-iteration-count: infinite;
+
+  -webkit-animation-name: colorresulticon;
+  -webkit-animation-duration: 2.4s;
+  -webkit-animation-iteration-count: infinite;
 }
 
 @media (hover: hover) {
