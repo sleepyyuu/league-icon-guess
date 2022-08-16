@@ -31,6 +31,17 @@ export default function Game() {
   const [highestStreak, setHighestStreak] = useState(0);
   const [numGamesPlayed, setNumGamesPlayed] = useState(0);
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyByPoeWhQtqjn1gZ_Bobg9uHPHoq5UfcYk",
+    authDomain: "league-skill-issue.firebaseapp.com",
+    projectId: "league-skill-issue",
+    storageBucket: "league-skill-issue.appspot.com",
+    messagingSenderId: "205982962159",
+    appId: "1:205982962159:web:dc37af54a61e4129d7a61a",
+    measurementId: "G-XNM7NS09ZS",
+  };
+  const app = initializeApp(firebaseConfig);
+
   const championArray = Object.keys(championListData.data);
   const exampleAbilities = [
     <img
@@ -51,19 +62,19 @@ export default function Game() {
     ></img>,
   ];
   const checkAnswer = (currentGuess) => {
-    let answerAnalytics = { skillName: [selectedChampionAbility.name], result: false };
+    let answerAnalytics = { skillName: [selectedChampionAbility.name] };
     setGetAnswer(true);
+    const analytics = getAnalytics(app);
     if (selectedChampionAbility.name === currentGuess.name) {
       setResults(true);
       setUserScore(userScore + 1);
-      answerAnalytics.result = true;
+      logEvent(analytics, "user_answer_correct", answerAnalytics);
     } else {
       setResults(false);
       setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
       setUserLife(userLife - 1);
+      logEvent(analytics, "user_answer_incorrect", answerAnalytics);
     }
-    const analytics = getAnalytics(app);
-    logEvent(analytics, "user_answer", answerAnalytics);
   };
 
   const handleNewGame = () => {
@@ -162,19 +173,7 @@ export default function Game() {
     }
   }, [gameCount]);
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyByPoeWhQtqjn1gZ_Bobg9uHPHoq5UfcYk",
-    authDomain: "league-skill-issue.firebaseapp.com",
-    projectId: "league-skill-issue",
-    storageBucket: "league-skill-issue.appspot.com",
-    messagingSenderId: "205982962159",
-    appId: "1:205982962159:web:dc37af54a61e4129d7a61a",
-    measurementId: "G-XNM7NS09ZS",
-  };
-  const app = initializeApp(firebaseConfig);
   useEffect(() => {
-    const analytics = getAnalytics(app);
-    logEvent(analytics, "time", { time: new Date() });
     setShowInitialMenu(true);
     pullFromLocalStorage();
     setShowButtons(true);
