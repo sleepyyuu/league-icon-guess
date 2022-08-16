@@ -15,7 +15,7 @@ export default function GameFooter(props) {
                 setShowEndMenu(true);
               }}
             >
-              <FaFlagCheckered className={userLife === 0 ? styles.resultIconPulse : styles.resultIcon}></FaFlagCheckered>
+              <FaFlagCheckered className={styles.resultIcon}></FaFlagCheckered>
             </button>
           </div>
         }

@@ -39,13 +39,13 @@
 
 @keyframes colorresulticon {
   0% {
-    color: #000000;
+    color: #72653e;
   }
   50% {
     color: #dfd2ad;
   }
   100% {
-    color: #000000;
+    color: #72653e;
   }
 }
 
@@ -192,13 +192,12 @@
   padding: 5px 20px 5px 30px;
 }
 
-.questionIcon,
-.resultIcon {
+.questionIcon {
   color: #b49f60;
   cursor: pointer;
 }
 
-.resultIconPulse {
+.resultIcon {
   color: #b49f60;
   cursor: pointer;
   animation-name: colorresulticon;
