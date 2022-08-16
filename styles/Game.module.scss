@@ -203,6 +203,18 @@
 .playButtonShadow {
 }
 
+@keyframes color {
+  0% {
+    background-color: #0c1d28;
+  }
+  50% {
+    background-color: #1b3242;
+  }
+  100% {
+    background-color: #0c1d28;
+  }
+}
+
 .playButton {
   font-family: "Rubik", sans-serif;
   padding: 10px 30px 10px 30px;
@@ -210,6 +222,9 @@
   border: 2px solid #cfb35f;
   background-color: #0c1d28;
   color: #cfb35f;
+  animation-name: color;
+  animation-duration: 2.4s;
+  animation-iteration-count: infinite;
 }
 
 .playButton:hover {
