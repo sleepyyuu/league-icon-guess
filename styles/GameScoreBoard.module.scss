@@ -72,7 +72,8 @@
 }
 
 .healthIconNoShow {
-  animation: fadeHealth 0.3s;
+  animation: fadeHealth 0.65s;
+  filter: hue-rotate(215deg);
   opacity: 0;
 }
 
