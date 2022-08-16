@@ -39,13 +39,13 @@
 
 @keyframes colorresulticon {
   0% {
-    color: #72653e;
+    color: #000000;
   }
   50% {
     color: #dfd2ad;
   }
   100% {
-    color: #72653e;
+    color: #000000;
   }
 }
 
@@ -216,5 +216,6 @@
   }
   .questionIcon:hover,
   .resultIcon:hover {
+    color: #cebc85;
   }
 }
