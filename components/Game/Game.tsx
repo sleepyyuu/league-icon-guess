@@ -311,7 +311,8 @@ export default function Game() {
       {showButtons ? (
         <div className={styles.gameFooter}>
           <div className={styles.question}>
-            Which of these is <div className={styles.abilityName}>{selectedChampionAbility ? selectedChampionAbility.name + "?" : ""}</div>
+            Which of these is{" "}
+            <div className={styles.abilityName}>{selectedChampionAbility ? selectedChampionAbility.name.toUpperCase() + "?" : ""}</div>
           </div>
         </div>
       ) : null}
