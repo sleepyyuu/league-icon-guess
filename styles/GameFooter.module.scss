@@ -64,9 +64,7 @@
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   z-index: 98;
-  animation-name: color;
-  animation-duration: 2.4s;
-  animation-iteration-count: infinite;
+  animation: 2.4s color infinite;
 }
 
 .newGameButtonPulse:before {
@@ -112,6 +110,7 @@
   background: rgb(26, 25, 25);
   top: 50%;
   transform: translateY(10%);
+  border-width: 0px 3.9px 0px 0px;
   border-right: 3.9px solid #0d8f8f;
   z-index: 99;
 }
