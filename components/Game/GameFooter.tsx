@@ -15,7 +15,7 @@ export default function GameFooter(props) {
                 setShowEndMenu(true);
               }}
             >
-              <FaFlagCheckered className={styles.resultIcon}></FaFlagCheckered>
+              <FaFlagCheckered className={userLife === 0 ? styles.resultIconPulse : styles.resultIcon}></FaFlagCheckered>
             </button>
           </div>
         }
@@ -23,7 +23,7 @@ export default function GameFooter(props) {
       <div className={styles.newGameButtonAllContainer}>
         <div className={styles.newGameButtonCircle}></div>
         <button
-          className={getAnswer ? styles.newGameButtonPulse : styles.newGameButton}
+          className={getAnswer && userLife !== 0 ? styles.newGameButtonPulse : styles.newGameButton}
           onClick={() => {
             if (userLife === 0 || !getAnswer) {
               return;

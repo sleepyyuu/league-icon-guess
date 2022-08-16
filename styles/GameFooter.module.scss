@@ -37,6 +37,18 @@
   }
 }
 
+@keyframes colorresulticon {
+  0% {
+    color: #72653e;
+  }
+  50% {
+    color: #dfd2ad;
+  }
+  100% {
+    color: #72653e;
+  }
+}
+
 .newGameButtonPulse {
   position: relative;
   width: 8.8rem;
@@ -184,6 +196,14 @@
 .resultIcon {
   color: #b49f60;
   cursor: pointer;
+}
+
+.resultIconPulse {
+  color: #b49f60;
+  cursor: pointer;
+  animation-name: colorresulticon;
+  animation-duration: 2.4s;
+  animation-iteration-count: infinite;
 }
 
 @media (hover: hover) {
