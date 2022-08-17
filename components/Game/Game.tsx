@@ -65,7 +65,7 @@ export default function Game() {
     let abilityName = "" + [selectedChampionAbility.name][0];
     //let answerAnalytics = { skillName: abilityName };
     setGetAnswer(true);
-    const analytics = getAnalytics(app);
+    const analytics = getAnalytics();
     logEvent(analytics, "user_streak", { userStreak: userScore });
     if (selectedChampionAbility.name === currentGuess.name) {
       logEvent(analytics, "user_answer_correct", { skillNameCorrect: abilityName });
@@ -183,7 +183,7 @@ export default function Game() {
 
   useEffect(() => {
     if (userLife === 0) {
-      const analytics = getAnalytics(app);
+      const analytics = getAnalytics();
       logEvent(analytics, "level_end");
       setNumGamesPlayed(numGamesPlayed + 1);
       setTimeout(() => {
