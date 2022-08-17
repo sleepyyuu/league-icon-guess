@@ -75,7 +75,7 @@ export default function Game() {
       setUserLife(userLife - 1);
       logEvent(analytics, "user_answer_incorrect", answerAnalytics);
     }
-    console.log(answerAnalytics);
+    logEvent(analytics, "user_streak", { userStreak: userScore });
   };
 
   const handleNewGame = () => {
