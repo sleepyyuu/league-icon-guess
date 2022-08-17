@@ -65,6 +65,7 @@ export default function Game() {
     let answerAnalytics = { skillName: [selectedChampionAbility.name][0] };
     setGetAnswer(true);
     const analytics = getAnalytics(app);
+    logEvent(analytics, "user_streak", { userStreak: userScore });
     if (selectedChampionAbility.name === currentGuess.name) {
       setResults(true);
       setUserScore(userScore + 1);
@@ -75,7 +76,6 @@ export default function Game() {
       setUserLife(userLife - 1);
       logEvent(analytics, "user_answer_incorrect", answerAnalytics);
     }
-    logEvent(analytics, "user_streak", { userStreak: userScore });
   };
 
   const handleNewGame = () => {
