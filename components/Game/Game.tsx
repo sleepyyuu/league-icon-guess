@@ -62,19 +62,20 @@ export default function Game() {
     ></img>,
   ];
   const checkAnswer = (currentGuess) => {
-    let answerAnalytics = { skillName: [selectedChampionAbility.name][0] };
+    let abilityName = "" + [selectedChampionAbility.name][0];
+    //let answerAnalytics = { skillName: abilityName };
     setGetAnswer(true);
     const analytics = getAnalytics(app);
     logEvent(analytics, "user_streak", { userStreak: userScore });
     if (selectedChampionAbility.name === currentGuess.name) {
+      logEvent(analytics, "user_answer_correct", { skillNameCorrect: abilityName });
       setResults(true);
       setUserScore(userScore + 1);
-      logEvent(analytics, "user_answer_correct", answerAnalytics);
     } else {
+      logEvent(analytics, "user_answer_incorrect", { skillNameIncorrect: abilityName });
       setResults(false);
       setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
       setUserLife(userLife - 1);
-      logEvent(analytics, "user_answer_incorrect", answerAnalytics);
     }
   };
 
