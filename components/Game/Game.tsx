@@ -62,7 +62,7 @@ export default function Game() {
     ></img>,
   ];
   const checkAnswer = (currentGuess) => {
-    let answerAnalytics = { skillName: [selectedChampionAbility.name] };
+    let answerAnalytics = { skillName: [selectedChampionAbility.name][0] };
     setGetAnswer(true);
     const analytics = getAnalytics(app);
     if (selectedChampionAbility.name === currentGuess.name) {
@@ -75,6 +75,7 @@ export default function Game() {
       setUserLife(userLife - 1);
       logEvent(analytics, "user_answer_incorrect", answerAnalytics);
     }
+    console.log(answerAnalytics);
   };
 
   const handleNewGame = () => {
