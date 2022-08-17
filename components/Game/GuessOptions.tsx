@@ -37,9 +37,9 @@ export default function GuessOptions(props) {
             {abilityRow.map((ability, abilityIndex) => {
               let imageSource = "";
               if (ability.id) {
-                imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/spell/" + ability.image.full;
+                imageSource = "https://ddragon.leagueoflegends.com/cdn/12.14.1/img/spell/" + ability.image.full;
               } else {
-                imageSource = "http://ddragon.leagueoflegends.com/cdn/12.14.1/img/passive/" + ability.image.full;
+                imageSource = "https://ddragon.leagueoflegends.com/cdn/12.14.1/img/passive/" + ability.image.full;
               }
               let classNameHolder = styles.abilityImage;
               if (selectedChampionAbility.name === ability.name && getAnswer) {
