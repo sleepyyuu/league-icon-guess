@@ -193,6 +193,8 @@ export default function Game() {
 
   useEffect(() => {
     if (userScore > highestStreak) {
+      const analytics = getAnalytics(app);
+      logEvent(analytics, "highest_streak", { highStreak: highestStreak });
       localStorage.setItem("highestStreak", "" + userScore);
       setHighestStreak(userScore);
     }
