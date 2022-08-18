@@ -68,7 +68,8 @@ export default function Game() {
     }
   };
 
-  const handleNewGame = () => {
+  const handleNewGame = (difficultSelection) => {
+    setFifteenOptions(difficultSelection);
     setGameCount(0);
     setUserLife(3);
     setUserScore(0);
@@ -329,6 +330,7 @@ export default function Game() {
               handleNewGame={handleNewGame}
               highestStreak={highestStreak}
               numGamesPlayed={numGamesPlayed}
+              fifteenOptions={fifteenOptions}
             ></GameResult>
           </div>
         </div>

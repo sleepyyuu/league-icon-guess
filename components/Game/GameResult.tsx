@@ -1,10 +1,10 @@
 import styles from "../../styles/GameResult.module.scss";
 import GameCopyClick from "./GameCopyClick";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function GameResult(props) {
-  const { userScore, handleNewGame, highestStreak, numGamesPlayed } = props;
-
+  const { userScore, handleNewGame, highestStreak, numGamesPlayed, fifteenOptions } = props;
+  const [selectedHarder, setSelectedHarder] = useState(fifteenOptions);
   return (
     <div className={styles.resultScreenContainer}>
       <div className={styles.statContainer}>
@@ -29,7 +29,7 @@ export default function GameResult(props) {
           </div>
         </div>
       </div>
-      <div className={styles.roleStatContainer}>
+      {/* <div className={styles.roleStatContainer}>
         <div>Role Distribution</div>
         <div>Coming soon!</div>
         <div className={styles.roleDetailContainer}>
@@ -54,12 +54,30 @@ export default function GameResult(props) {
             <div className={styles.roleDetailNumber}>0%</div>
           </div>
         </div>
+      </div> */}
+      <div className={styles.difficultyContainer}>
+        <div
+          className={selectedHarder ? styles.difficultySelector : styles.difficultySelected}
+          onClick={() => {
+            setSelectedHarder(false);
+          }}
+        >
+          NOVICE
+        </div>
+        <div
+          className={selectedHarder ? styles.difficultySelected : styles.difficultySelector}
+          onClick={() => {
+            setSelectedHarder(true);
+          }}
+        >
+          VETERAN
+        </div>
       </div>
       <div className={styles.playAgainButtonContainer}>
         <button
           className={styles.playAgainButton}
           onClick={() => {
-            handleNewGame();
+            handleNewGame(selectedHarder);
           }}
         >
           Play again
