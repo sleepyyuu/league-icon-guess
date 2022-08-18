@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>League Skill Issue</title>
+        <title>LoL Skill Issue</title>
         <meta name="description" content="League of Legends mini game ability icon guessing game, ability icon matching game." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <link rel="icon" href="/favicon.ico" />
