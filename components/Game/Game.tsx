@@ -173,7 +173,7 @@ export default function Game() {
       appId: "1:205982962159:web:dc37af54a61e4129d7a61a",
       measurementId: "G-XNM7NS09ZS",
     };
-    initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
     setShowInitialMenu(true);
     pullFromLocalStorage();
     setShowButtons(true);
