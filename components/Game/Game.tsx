@@ -182,8 +182,8 @@ export default function Game() {
   useEffect(() => {
     if (userLife === 0) {
       const analytics = getAnalytics();
-      logEvent(analytics, "level_end");
-      logEvent(analytics, "user_streak", { userStreak: userScore });
+      logEvent(analytics, "level_end", { success: true });
+      logEvent(analytics, "post_score", { score: userScore });
       setNumGamesPlayed(numGamesPlayed + 1);
       setTimeout(() => {
         setShowEndMenu(true);
