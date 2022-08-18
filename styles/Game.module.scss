@@ -251,6 +251,71 @@
   animation: 2.4s color infinite;
 }
 
+.gameHeader {
+  position: relative;
+}
+
+@keyframes fadeIcon {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.incorrectDetailContainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.incorrectDetail {
+  display: flex;
+  opacity: 1;
+  z-index: 200;
+  background-color: #0c1d28;
+  border: 2px solid #836d2b;
+  transform: translate(0%, -25%);
+  padding: 3px 25px;
+  animation: fadeIcon 7s;
+  font-family: "Rubik", sans-serif;
+  font-size: 1rem;
+}
+
+@keyframes colorresulticon {
+  0% {
+    color: #ad9c67;
+  }
+  50% {
+    color: #d1c08f;
+  }
+  100% {
+    color: #ad9c67;
+  }
+}
+
+.incorrectDetailName {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-weight: bold;
+  color: #d1be83;
+  text-shadow: 0px 0px 2px#b49f60;
+  animation-name: colorresulticon;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+}
+
 @media (hover: hover) {
   .difficultySelector:hover {
     background-image: linear-gradient(0deg, #6b6040, 6%, rgb(24, 24, 24) 75%);

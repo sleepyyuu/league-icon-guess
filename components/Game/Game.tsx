@@ -20,6 +20,7 @@ export default function Game() {
   const [abilityOptions, setAbilityOptions] = useState([]);
   const [currentGuessRow, setCurrentGuessRow] = useState([{ name: "", image: { full: "" }, isPassive: false }]);
   const [gameCount, setGameCount] = useState(0);
+  const [userCurrentGuessName, setUserCurrentGuessName] = useState("");
   const [userLife, setUserLife] = useState(3);
   const [userScore, setUserScore] = useState(0);
   const [getAnswer, setGetAnswer] = useState(false);
@@ -61,6 +62,7 @@ export default function Game() {
       setResults(true);
       setUserScore(userScore + 1);
     } else {
+      setUserCurrentGuessName(currentGuess.name);
       logEvent(analytics, "user_answer_incorrect", { skillNameIncorrect: abilityName });
       setResults(false);
       setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
@@ -162,6 +164,7 @@ export default function Game() {
   useEffect(() => {
     setResults(false);
     setAnimationEnd(false);
+    setUserCurrentGuessName("");
     setupAbilitySelection(fifteenOptions);
     if (userLife !== 3 || userScore !== 0) {
       setFirstFadeAnimation(true);
@@ -337,7 +340,24 @@ export default function Game() {
       </Popup>
       {showButtons ? <GameScoreBoard userLife={userLife} userScore={userScore} results={results}></GameScoreBoard> : null}
       {showButtons ? (
-        <div className={styles.gameFooter}>
+        <div className={styles.gameHeader}>
+          {userCurrentGuessName === "" ? null : (
+            <div className={styles.incorrectDetailContainer}>
+              <div className={styles.incorrectDetail}>
+                You guessed&nbsp;
+                <div className={styles.incorrectDetailName}>
+                  <a
+                    href={"https://www.google.com/search?q=league+of+legends+" + userCurrentGuessName}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    {userCurrentGuessName}
+                  </a>
+                </div>
+                ...
+              </div>
+            </div>
+          )}
           <div className={styles.question}>
             Which of these is{" "}
             <div className={styles.abilityName}>{selectedChampionAbility ? selectedChampionAbility.name.toUpperCase() + "?" : ""}</div>
