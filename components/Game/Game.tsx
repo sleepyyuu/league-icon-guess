@@ -62,7 +62,7 @@ export default function Game() {
       setResults(true);
       setUserScore(userScore + 1);
     } else {
-      setUserCurrentGuessName(currentGuess.name);
+      setUserCurrentGuessName(currentGuess.name + "(" + currentGuess.championName + ")");
       logEvent(analytics, "user_answer_incorrect", { skillNameIncorrect: abilityName });
       setResults(false);
       setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
@@ -128,7 +128,9 @@ export default function Game() {
       if (additionalAbilityChoices.find((ability) => ability.name === additionalSelectedChamp.spells[randomAbilitySelect].name)) {
         continue;
       } else {
-        additionalAbilityChoices.push(additionalSelectedChamp.spells[randomAbilitySelect]);
+        let temp = additionalSelectedChamp.spells[randomAbilitySelect];
+        temp.championName = additionalSelectedChamp.name;
+        additionalAbilityChoices.push(temp);
       }
     }
     let additionalPassiveChoices = [];
@@ -143,7 +145,9 @@ export default function Game() {
         if (additionalPassiveChoices.find((passive) => passive.name === additionalSelectedChamp.passive.name)) {
           continue;
         } else {
-          additionalPassiveChoices.push(additionalSelectedChamp.passive);
+          let temp = additionalSelectedChamp.passive;
+          temp.championName = additionalSelectedChamp.name;
+          additionalPassiveChoices.push(temp);
         }
       }
     }
