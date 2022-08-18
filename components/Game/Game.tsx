@@ -3,6 +3,7 @@ import GameScoreBoard from "./GameScoreBoard";
 import GameFooter from "./GameFooter";
 import championListData from "../../assets/data/champion.json";
 import GameResult from "./GameResult";
+import FastToggle from "./FastToggle";
 import styles from "../../styles/Game.module.scss";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
@@ -32,6 +33,7 @@ export default function Game() {
   const [firstFadeAnimation, setFirstFadeAnimation] = useState(false);
   const [highestStreak, setHighestStreak] = useState(0);
   const [numGamesPlayed, setNumGamesPlayed] = useState(0);
+  const [isFastMode, setisFastMode] = useState(false);
 
   const championArray = Object.keys(championListData.data);
   const exampleAbilities = [
@@ -61,12 +63,22 @@ export default function Game() {
       logEvent(analytics, "user_answer_correct", { skillNameCorrect: abilityName });
       setResults(true);
       setUserScore(userScore + 1);
+      if (isFastMode && userLife !== 0) {
+        setTimeout(() => {
+          setGameCount(gameCount + 1);
+        }, 1300);
+      }
     } else {
       setUserCurrentGuessName(currentGuess.name + "(" + currentGuess.championName + ")");
       logEvent(analytics, "user_answer_incorrect", { skillNameIncorrect: abilityName });
       setResults(false);
       setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
       setUserLife(userLife - 1);
+      if (isFastMode && userLife - 1 !== 0) {
+        setTimeout(() => {
+          setGameCount(gameCount + 1);
+        }, 1300);
+      }
     }
   };
 
@@ -392,7 +404,17 @@ export default function Game() {
         setGameCount={setGameCount}
         setShowEndMenu={setShowEndMenu}
         showButtons={showButtons}
+        isFastMode={isFastMode}
       ></GameFooter>
+      <FastToggle
+        isFastMode={isFastMode}
+        setisFastMode={setisFastMode}
+        getAnswer={getAnswer}
+        gameCount={gameCount}
+        setGameCount={setGameCount}
+        setFirstFadeAnimation={setFirstFadeAnimation}
+        userLife={userLife}
+      ></FastToggle>
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import uniqid from "uniqid";
 import styles from "../../styles/GuessOptions.module.scss";
 import { isMobile } from "react-device-detect";
-import { useEffect, useState } from "react";
+import { memo } from "react";
 
-export default function GuessOptions(props) {
+const GuessOptions = (props) => {
   let {
     abilityOptions,
     setAbilityOptions,
@@ -88,4 +88,6 @@ export default function GuessOptions(props) {
       })}
     </div>
   );
-}
+};
+
+export default memo(GuessOptions);
