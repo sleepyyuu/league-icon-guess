@@ -243,8 +243,8 @@ export default function Game() {
             <div className={styles.infoContainer}>
               <div>Aim for a high streak within 3 lives.</div>
               <div>Click on the icon that matches the name.</div>
-              <div>One guess only for each question.</div>
               <div>Includes both abilities AND passives.</div>
+              <div>Novice has 9 choices. Veteran has 16 choices.</div>
             </div>
             <div className={styles.exampleContainer}>
               <div>EXAMPLE</div>
@@ -261,26 +261,28 @@ export default function Game() {
               </div>
             </div>
           </div>
-          <div className={styles.difficultyContainer}>
-            <div
-              className={styles.noviceSelector}
-              onClick={() => {
-                setFifteenOptions(false);
-                setupAbilitySelection(false);
-              }}
-            >
-              Novice
+          {userLife === 3 && userScore === 0 ? (
+            <div className={styles.difficultyContainer}>
+              <div
+                className={fifteenOptions ? styles.difficultySelector : styles.difficultySelected}
+                onClick={() => {
+                  setFifteenOptions(false);
+                  setupAbilitySelection(false);
+                }}
+              >
+                NOVICE
+              </div>
+              <div
+                className={fifteenOptions ? styles.difficultySelected : styles.difficultySelector}
+                onClick={() => {
+                  setFifteenOptions(true);
+                  setupAbilitySelection(true);
+                }}
+              >
+                VETERAN
+              </div>
             </div>
-            <div
-              className={styles.veteranSelector}
-              onClick={() => {
-                setFifteenOptions(true);
-                setupAbilitySelection(true);
-              }}
-            >
-              Veteran
-            </div>
-          </div>
+          ) : null}
           <div className={styles.playButtonContainer}>
             <div className={styles.playButtonShadow}></div>
             <button
