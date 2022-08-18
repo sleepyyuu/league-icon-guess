@@ -56,11 +56,11 @@ export default function Game() {
     setGetAnswer(true);
     const analytics = getAnalytics();
     if (selectedChampionAbility.name === currentGuess.name) {
-      logEvent(analytics, "user_answer_correct", { skillNameCorrect: abilityName });
+      logEvent(analytics, "user_answer_correct", { abilityName });
       setResults(true);
       setUserScore(userScore + 1);
     } else {
-      logEvent(analytics, "user_answer_incorrect", { skillNameIncorrect: abilityName });
+      logEvent(analytics, "user_answer_incorrect", { abilityName });
       setResults(false);
       setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
       setUserLife(userLife - 1);
