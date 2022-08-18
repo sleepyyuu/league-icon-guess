@@ -56,11 +56,11 @@ export default function Game() {
     setGetAnswer(true);
     const analytics = getAnalytics();
     if (selectedChampionAbility.name === currentGuess.name) {
-      logEvent(analytics, "user_answer_correct", { abilityName });
+      logEvent(analytics, "user_answer_correct", { skillNameCorrect: abilityName });
       setResults(true);
       setUserScore(userScore + 1);
     } else {
-      logEvent(analytics, "user_answer_incorrect", { abilityName });
+      logEvent(analytics, "user_answer_incorrect", { skillNameIncorrect: abilityName });
       setResults(false);
       setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
       setUserLife(userLife - 1);
@@ -173,7 +173,7 @@ export default function Game() {
       appId: "1:205982962159:web:dc37af54a61e4129d7a61a",
       measurementId: "G-XNM7NS09ZS",
     };
-    const app = initializeApp(firebaseConfig);
+    initializeApp(firebaseConfig);
     setShowInitialMenu(true);
     pullFromLocalStorage();
     setShowButtons(true);
