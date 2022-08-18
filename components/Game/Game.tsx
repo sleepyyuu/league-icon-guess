@@ -15,6 +15,7 @@ import { initializeApp } from "firebase/app";
 //useEffect check if life === 0. popup with newgame option, dependency array life
 
 export default function Game() {
+  const [fifteenOptions, setFifteenOptions] = useState(false);
   const [selectedChampionAbility, setSelectedChampionAbility] = useState({ name: "" });
   const [abilityOptions, setAbilityOptions] = useState([]);
   const [currentGuessRow, setCurrentGuessRow] = useState([{ name: "", image: { full: "" }, isPassive: false }]);
@@ -93,12 +94,9 @@ export default function Game() {
     }
   };
 
-  useEffect(() => {
-    setResults(false);
-    setAnimationEnd(false);
+  const setupAbilitySelection = (veteran) => {
     let abilityAmount = 0;
-    if (isMobile) {
-      //mobilescreen, handle
+    if (!veteran) {
       abilityAmount = 4;
     } else {
       abilityAmount = 7;
@@ -121,7 +119,7 @@ export default function Game() {
       setSelectedChampionAbility(selectedAbility);
     }
     let additionalAbilityChoices = [];
-    while (additionalAbilityChoices.length < abilityAmount) {
+    while (additionalAbilityChoices.length < abilityAmount + 2) {
       let randomChampionNumber = Math.floor(Math.random() * championArray.length);
       let additionalSelectedChamp = require("../../assets/data/champion/" + championArray[randomChampionNumber] + ".json").data;
       additionalSelectedChamp = additionalSelectedChamp[Object.keys(additionalSelectedChamp)[0]];
@@ -136,7 +134,7 @@ export default function Game() {
       }
     }
     let additionalPassiveChoices = [];
-    while (additionalPassiveChoices.length < abilityAmount) {
+    while (additionalPassiveChoices.length < abilityAmount - 1) {
       let randomChampionNumber = Math.floor(Math.random() * championArray.length);
       if (randomChampionNumber === answerChampionNumber) {
         continue;
@@ -152,12 +150,22 @@ export default function Game() {
     }
     let abilityOptionsArray = [...additionalAbilityChoices, selectedAbility, ...additionalPassiveChoices];
     shuffleArray(abilityOptionsArray);
-    if (isMobile) {
+    if (!veteran) {
       setAbilityOptions([abilityOptionsArray.slice(0, 3), abilityOptionsArray.slice(3, 6), abilityOptionsArray.slice(6, 9)]);
     } else {
-      setAbilityOptions([abilityOptionsArray.slice(0, 5), abilityOptionsArray.slice(5, 10), abilityOptionsArray.slice(10, 15)]);
+      setAbilityOptions([
+        abilityOptionsArray.slice(0, 4),
+        abilityOptionsArray.slice(4, 8),
+        abilityOptionsArray.slice(8, 12),
+        abilityOptionsArray.slice(12, 16),
+      ]);
     }
+  };
 
+  useEffect(() => {
+    setResults(false);
+    setAnimationEnd(false);
+    setupAbilitySelection(fifteenOptions);
     if (userLife !== 3 || userScore !== 0) {
       setFirstFadeAnimation(true);
     }
@@ -253,6 +261,26 @@ export default function Game() {
               </div>
             </div>
           </div>
+          <div className={styles.difficultyContainer}>
+            <div
+              className={styles.noviceSelector}
+              onClick={() => {
+                setFifteenOptions(false);
+                setupAbilitySelection(false);
+              }}
+            >
+              Novice
+            </div>
+            <div
+              className={styles.veteranSelector}
+              onClick={() => {
+                setFifteenOptions(true);
+                setupAbilitySelection(true);
+              }}
+            >
+              Veteran
+            </div>
+          </div>
           <div className={styles.playButtonContainer}>
             <div className={styles.playButtonShadow}></div>
             <button
@@ -330,6 +358,7 @@ export default function Game() {
         results={results}
         firstFadeAnimation={firstFadeAnimation}
         setFirstFadeAnimation={setFirstFadeAnimation}
+        fifteenOptions={fifteenOptions}
       ></GuessOptions>
       <GameFooter
         setShowInitialMenu={setShowInitialMenu}

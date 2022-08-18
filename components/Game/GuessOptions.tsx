@@ -1,6 +1,6 @@
-import Image from "next/image";
 import uniqid from "uniqid";
 import styles from "../../styles/GuessOptions.module.scss";
+import { isMobile } from "react-device-detect";
 import { useEffect, useState } from "react";
 
 export default function GuessOptions(props) {
@@ -17,6 +17,7 @@ export default function GuessOptions(props) {
     gameCount,
     firstFadeAnimation,
     setFirstFadeAnimation,
+    fifteenOptions,
   } = props;
 
   const handleImageClick = (ability, abilityRowIndex, abilityIndex) => {
@@ -60,11 +61,19 @@ export default function GuessOptions(props) {
                 classNameHolder += " " + styles.abilityImageAnimateFade;
               }
               return (
-                <div key={imageSource} className={styles.abilityImageContainer}>
+                <div
+                  key={imageSource}
+                  className={styles.abilityImageContainer}
+                  style={{
+                    height: fifteenOptions && isMobile ? 80 : 100,
+                    width: fifteenOptions && isMobile ? 80 : 100,
+                    margin: fifteenOptions && isMobile ? "6px" : "10px",
+                  }}
+                >
                   <img
                     src={imageSource}
-                    width={110}
-                    height={110}
+                    width={fifteenOptions && isMobile ? 80 : 100}
+                    height={fifteenOptions && isMobile ? 80 : 100}
                     onClick={() => {
                       handleImageClick(ability, abilityRowIndex, abilityIndex);
                     }}
