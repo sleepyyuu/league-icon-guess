@@ -95,12 +95,6 @@ export default function Game() {
   };
 
   const setupAbilitySelection = (veteran) => {
-    let abilityAmount = 0;
-    if (!veteran) {
-      abilityAmount = 4;
-    } else {
-      abilityAmount = 7;
-    }
     setGetAnswer(false);
     setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
     const answerChampionNumber = Math.floor(Math.random() * championArray.length);
@@ -119,7 +113,8 @@ export default function Game() {
       setSelectedChampionAbility(selectedAbility);
     }
     let additionalAbilityChoices = [];
-    while (additionalAbilityChoices.length < abilityAmount + 2) {
+    let abilityAmountCap = veteran ? 9 : 5;
+    while (additionalAbilityChoices.length < abilityAmountCap) {
       let randomChampionNumber = Math.floor(Math.random() * championArray.length);
       let additionalSelectedChamp = require("../../assets/data/champion/" + championArray[randomChampionNumber] + ".json").data;
       additionalSelectedChamp = additionalSelectedChamp[Object.keys(additionalSelectedChamp)[0]];
@@ -134,7 +129,8 @@ export default function Game() {
       }
     }
     let additionalPassiveChoices = [];
-    while (additionalPassiveChoices.length < abilityAmount - 1) {
+    let passiveAmountCap = veteran ? 6 : 3;
+    while (additionalPassiveChoices.length < passiveAmountCap) {
       let randomChampionNumber = Math.floor(Math.random() * championArray.length);
       if (randomChampionNumber === answerChampionNumber) {
         continue;
