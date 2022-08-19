@@ -66,7 +66,7 @@ export default function Game() {
       if (isFastMode && userLife !== 0) {
         setTimeout(() => {
           setGameCount(gameCount + 1);
-        }, 1300);
+        }, 1100);
       }
     } else {
       setUserCurrentGuessName(currentGuess.name + "(" + currentGuess.championName + ")");
@@ -77,7 +77,7 @@ export default function Game() {
       if (isFastMode && userLife - 1 !== 0) {
         setTimeout(() => {
           setGameCount(gameCount + 1);
-        }, 1300);
+        }, 1100);
       }
     }
   };
