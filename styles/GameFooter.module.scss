@@ -109,21 +109,20 @@
   left: -4px;
   background: rgb(26, 25, 25);
   top: 50%;
-  transform: translateY(10%);
+  transform: translateY(0%);
   border-width: 0px 3.9px 0px 0px;
   border-right: 3.9px solid #0d8f8f;
-  z-index: 99;
+  z-index: 100;
 }
 
 .newGameButton {
   position: relative;
   width: 8.8rem;
   height: 50px;
-  margin-top: 5px;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   background-color: #1e2328;
   border: 3px solid #07b1b2;
-  padding: 0 0 0 52px;
+  padding: 0 0 0 53px;
   text-align: center;
   background-size: 100% 50%;
   color: white;
