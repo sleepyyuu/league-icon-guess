@@ -7,7 +7,7 @@ export default function GameScoreBoard(props) {
   for (let i = 3; i > 0; i--) {
     lifeIconArray.push(
       <Image
-        src={require("../../assets/sprites/healthicon.png")}
+        src={require("../../public/sprites/healthicon.png")}
         width={30}
         height={30}
         className={userLife - i >= 0 ? styles.healthIcon : styles.healthIconNoShow}
@@ -23,7 +23,7 @@ export default function GameScoreBoard(props) {
           <div className={results ? styles.addScoreAnimation : styles.addScoreAnimationHide}>+1</div>&nbsp;&nbsp;{userScore}
         </div>
         <div className={styles.goldIconContainer}>
-          <Image src={require("../../assets/sprites/gold.png")} width={30} height={30} className={styles.goldIcon} alt="Gold"></Image>
+          <Image src={require("../../public/sprites/gold.png")} width={30} height={30} className={styles.goldIcon} alt="Gold"></Image>
         </div>
       </div>
       <div className={styles.lifeContainer}>
