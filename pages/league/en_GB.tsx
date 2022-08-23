@@ -12,11 +12,11 @@ export default function Home() {
         <meta name="description" content="League of Legends mini game ability icon guessing game, ability icon matching game." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <link rel="icon" href="/favicon.ico" />
-        <Script
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3180908358838010"
           crossOrigin="anonymous"
-        ></Script>
+        ></script>
       </Head>
       <header className={styles.gameHeader}>
         <div></div>
