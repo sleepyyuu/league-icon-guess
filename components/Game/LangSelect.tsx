@@ -19,7 +19,8 @@ export default function LangSelect(props) {
           id="languages"
           name="languages"
           onChange={(e) => {
-            router.push("/league/" + e.target.value);
+            let redirectUrl = "https://www.skill-issue.com/league/" + e.target.value;
+            window.location.href = redirectUrl;
           }}
           value={locale}
           className={styles.langSelectChosen}
