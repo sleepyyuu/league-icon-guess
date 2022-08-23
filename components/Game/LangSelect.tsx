@@ -6,7 +6,7 @@ import { FaLanguage } from "react-icons/fa";
 export default function LangSelect(props) {
   const { locale, lang } = props;
   const router = useRouter();
-
+  console.log(locale);
   return (
     <div className={styles.langSelectContainer}>
       <div className={styles.langHeader}></div>
