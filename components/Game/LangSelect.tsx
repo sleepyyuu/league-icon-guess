@@ -6,7 +6,8 @@ import { FaLanguage } from "react-icons/fa";
 export default function LangSelect(props) {
   const { locale, lang } = props;
   const router = useRouter();
-  console.log(locale);
+  let temp = locale.split("_");
+  let correctLocale = temp[0] + "_" + temp[1].toUpperCase();
   return (
     <div className={styles.langSelectContainer}>
       <div className={styles.langHeader}></div>
@@ -22,7 +23,7 @@ export default function LangSelect(props) {
             let redirectUrl = "https://www.skill-issue.com/league/" + e.target.value;
             window.location.href = redirectUrl;
           }}
-          value={locale}
+          value={correctLocale}
           className={styles.langSelectChosen}
         >
           <option value="cs_CZ">Czech - čeština</option>
