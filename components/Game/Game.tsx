@@ -1,7 +1,8 @@
 import GuessOptions from "./GuessOptions";
 import GameScoreBoard from "./GameScoreBoard";
 import GameFooter from "./GameFooter";
-import championListData from "../../assets/data/champion.json";
+import LangSelect from "./LangSelect";
+import championListData from "../../assets/en_US/champion.json";
 import GameResult from "./GameResult";
 import FastToggle from "./FastToggle";
 import styles from "../../styles/Game.module.scss";
@@ -12,10 +13,15 @@ import { isMobile } from "react-device-detect";
 import uniqid from "uniqid";
 import { logEvent, getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
+import { useRouter } from "next/router";
 
-//useEffect check if life === 0. popup with newgame option, dependency array life
-
-export default function Game() {
+export default function Game(props) {
+  const { championObject, lang } = props;
+  const { asPath } = useRouter();
+  let locale = asPath.split("/")[2];
+  if (!locale) {
+    locale = "en_US";
+  }
   const [fifteenOptions, setFifteenOptions] = useState(false);
   const [selectedChampionAbility, setSelectedChampionAbility] = useState({ name: "" });
   const [abilityOptions, setAbilityOptions] = useState([]);
@@ -34,7 +40,6 @@ export default function Game() {
   const [highestStreak, setHighestStreak] = useState(0);
   const [numGamesPlayed, setNumGamesPlayed] = useState(0);
   const [isFastMode, setisFastMode] = useState(false);
-
   const championArray = Object.keys(championListData.data);
   const exampleAbilities = [
     <img
@@ -113,9 +118,10 @@ export default function Game() {
     setGetAnswer(false);
     setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
     const answerChampionNumber = Math.floor(Math.random() * championArray.length);
-    let selectedChamp = require("../../assets/data/champion/" + championArray[answerChampionNumber] + ".json").data;
-    selectedChamp = selectedChamp[Object.keys(selectedChamp)[0]];
 
+    let selectedChamp = championObject[championArray[answerChampionNumber]];
+    let selectedChampName = championArray[answerChampionNumber];
+    selectedChamp = selectedChamp[selectedChampName];
     let randomSelect = Math.floor(Math.random() * 5);
     let selectedAbility;
     if (randomSelect > 3) {
@@ -131,8 +137,8 @@ export default function Game() {
     let abilityAmountCap = veteran ? 9 : 5;
     while (additionalAbilityChoices.length < abilityAmountCap) {
       let randomChampionNumber = Math.floor(Math.random() * championArray.length);
-      let additionalSelectedChamp = require("../../assets/data/champion/" + championArray[randomChampionNumber] + ".json").data;
-      additionalSelectedChamp = additionalSelectedChamp[Object.keys(additionalSelectedChamp)[0]];
+      let additionalSelectedChamp = championObject[championArray[randomChampionNumber]];
+      additionalSelectedChamp = additionalSelectedChamp[championArray[randomChampionNumber]];
       let randomAbilitySelect = Math.floor(Math.random() * 4);
       if (additionalSelectedChamp.spells[randomAbilitySelect].name === selectedAbility.name) {
         continue;
@@ -152,8 +158,8 @@ export default function Game() {
       if (randomChampionNumber === answerChampionNumber) {
         continue;
       } else {
-        let additionalSelectedChamp = require("../../assets/data/champion/" + championArray[randomChampionNumber] + ".json").data;
-        additionalSelectedChamp = additionalSelectedChamp[Object.keys(additionalSelectedChamp)[0]];
+        let additionalSelectedChamp = championObject[championArray[randomChampionNumber]];
+        additionalSelectedChamp = additionalSelectedChamp[championArray[randomChampionNumber]];
         if (additionalPassiveChoices.find((passive) => passive.name === additionalSelectedChamp.passive.name)) {
           continue;
         } else {
@@ -186,6 +192,18 @@ export default function Game() {
       setFirstFadeAnimation(true);
     }
   }, [gameCount]);
+
+  function getClientLocale() {
+    if (typeof Intl !== "undefined") {
+      try {
+        return Intl.NumberFormat().resolvedOptions().locale;
+      } catch (err) {
+        return "en-US";
+      }
+    } else {
+      return "en-US";
+    }
+  }
 
   useEffect(() => {
     const firebaseConfig = {
@@ -257,15 +275,15 @@ export default function Game() {
           <div className={styles.modalHeader}>INFO</div>
           <div className={styles.modalContent}>
             <div className={styles.infoContainer}>
-              <div>Aim for a high streak within 3 lives.</div>
-              <div>Click on the icon that matches the name.</div>
-              <div>Includes both abilities AND passives.</div>
+              <div>Aim for a high streak in 3 lives.</div>
+              <div>Tap the icon that matches the name.</div>
               <div>Novice has 9 choices. Veteran has 16 choices.</div>
             </div>
+            <LangSelect locale={locale} lang={lang}></LangSelect>
             <div className={styles.exampleContainer}>
               <div>EXAMPLE</div>
               <div className={styles.exampleName}>
-                <div style={{ fontWeight: "700", fontFamily: "Roboto" }}>Yordle Snap Trap</div>
+                <div style={{ fontWeight: "700", fontFamily: "Roboto" }}>{championObject["Caitlyn"]["Caitlyn"].spells[1].name}</div>
               </div>
               <div className={styles.exampleRow}>
                 <div className={styles.exampleColumn}>

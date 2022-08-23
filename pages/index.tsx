@@ -1,7 +1,10 @@
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import Script from "next/script";
+import Link from "next/link";
+import IntroMain from "../components/Intro/IntroMain";
 import Game from "../components/Game/Game";
+import championObject from "../assets/en_US/lang_import";
 
 export default function Home() {
   return (
@@ -11,11 +14,11 @@ export default function Home() {
         <meta name="description" content="League of Legends mini game ability icon guessing game, ability icon matching game." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <link rel="icon" href="/favicon.ico" />
-        <script
+        <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3180908358838010"
           crossOrigin="anonymous"
-        ></script>
+        ></Script>
       </Head>
       <header className={styles.gameHeader}>
         <div></div>
@@ -24,7 +27,7 @@ export default function Home() {
       </header>
 
       <main className={styles.main}>
-        <Game></Game>
+        <Game championObject={championObject}></Game>
       </main>
     </div>
   );
