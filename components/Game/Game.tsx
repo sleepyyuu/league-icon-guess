@@ -93,7 +93,7 @@ export default function Game(props) {
         if (isFastMode && userLife !== 0) {
           setTimeout(() => {
             setGameCount(gameCount + 1);
-          }, 10);
+          }, 1100);
         }
       }
     } else {
