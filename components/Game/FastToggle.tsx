@@ -3,7 +3,7 @@ import styles from "../../styles/FastToggle.module.scss";
 import { useState, useEffect } from "react";
 
 export default function FastToggle(props) {
-  const { isFastMode, setisFastMode, getAnswer, gameCount, setGameCount, setFirstFadeAnimation, userLife } = props;
+  const { isFastMode, setisFastMode, getAnswer, gameCount, setGameCount, setFirstFadeAnimation, userLife, gameEnd } = props;
   const [showFastDetail, setShowFastDetail] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function FastToggle(props) {
           onChange={() => {
             setisFastMode(!isFastMode);
             setFirstFadeAnimation(false);
-            if (getAnswer && userLife !== 0) {
+            if (getAnswer && userLife !== 0 && !gameEnd) {
               setGameCount(gameCount + 1);
             }
           }}

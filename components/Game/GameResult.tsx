@@ -3,13 +3,23 @@ import GameCopyClick from "./GameCopyClick";
 import { useEffect, useState } from "react";
 
 export default function GameResult(props) {
-  const { userScore, handleNewGame, highestStreak, numGamesPlayed, fifteenOptions } = props;
+  const {
+    userScore,
+    handleNewGame,
+    highestStreak,
+    numGamesPlayed,
+    fifteenOptions,
+    highestStreakVeteran,
+    numGamesPlayedVeteran,
+    perfectScore,
+  } = props;
   const [selectedHarder, setSelectedHarder] = useState(fifteenOptions);
   return (
     <div className={styles.resultScreenContainer}>
+      {perfectScore ? <div className={styles.perfectScoreComment}>You got everything correct!!</div> : null}
       <div className={styles.statContainer}>
         <div className={styles.statDetailContainer}>
-          <div className={styles.statDetailNumber}>{numGamesPlayed}</div>
+          <div className={styles.statDetailNumber}>{selectedHarder ? numGamesPlayedVeteran : numGamesPlayed}</div>
           <div className={styles.statDetailText}>
             <div>Played</div>
           </div>
@@ -22,7 +32,7 @@ export default function GameResult(props) {
           </div>
         </div>
         <div className={styles.statDetailContainer}>
-          <div className={styles.statDetailNumber}>{highestStreak}</div>
+          <div className={styles.statDetailNumber}>{selectedHarder ? highestStreakVeteran : highestStreak}</div>
           <div className={styles.statDetailText}>
             <div>Highest</div>
             <div>Streak</div>

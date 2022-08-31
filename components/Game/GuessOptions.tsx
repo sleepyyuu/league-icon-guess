@@ -18,9 +18,10 @@ const GuessOptions = (props) => {
     firstFadeAnimation,
     setFirstFadeAnimation,
     fifteenOptions,
+    userScore,
   } = props;
 
-  const handleImageClick = (ability, abilityRowIndex, abilityIndex) => {
+  const handleImageClick = (ability) => {
     if (getAnswer || userLife === 0) {
       return;
     } else {
@@ -60,6 +61,9 @@ const GuessOptions = (props) => {
               if (firstFadeAnimation) {
                 classNameHolder += " " + styles.abilityImageAnimateFade;
               }
+              // if (selectedChampionAbility.name === ability.name && userScore < 803) {
+              //   handleImageClick(ability);
+              // }
               return (
                 <div
                   key={imageSource}
@@ -75,7 +79,7 @@ const GuessOptions = (props) => {
                     width={fifteenOptions && isMobile ? 80 : 100}
                     height={fifteenOptions && isMobile ? 80 : 100}
                     onClick={() => {
-                      handleImageClick(ability, abilityRowIndex, abilityIndex);
+                      handleImageClick(ability);
                     }}
                     className={classNameHolder}
                     key={imageSource}

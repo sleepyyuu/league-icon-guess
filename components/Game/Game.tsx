@@ -14,6 +14,7 @@ import uniqid from "uniqid";
 import { logEvent, getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
 import { useRouter } from "next/router";
+import confetti from "canvas-confetti";
 
 export default function Game(props) {
   const { championObject, lang } = props;
@@ -39,7 +40,13 @@ export default function Game(props) {
   const [firstFadeAnimation, setFirstFadeAnimation] = useState(false);
   const [highestStreak, setHighestStreak] = useState(0);
   const [numGamesPlayed, setNumGamesPlayed] = useState(0);
+  const [highestStreakVeteran, setHighestStreakVeteran] = useState(0);
+  const [numGamesPlayedVeteran, setNumGamesPlayedVeteran] = useState(0);
   const [isFastMode, setisFastMode] = useState(false);
+  const [questionAbilityOrder, setQuestionAbilityOrder] = useState([]);
+  const [questionAbilityCurrent, setQuestionAbilityCurrent] = useState(0);
+  const [perfectScore, setPerfectScore] = useState(false);
+  const [gameEnd, setGameEnd] = useState(false);
   const championArray = Object.keys(championListData.data);
   const exampleAbilities = [
     <img
@@ -68,10 +75,26 @@ export default function Game(props) {
       logEvent(analytics, "user_answer_correct", { skillNameCorrect: abilityName });
       setResults(true);
       setUserScore(userScore + 1);
-      if (isFastMode && userLife !== 0) {
-        setTimeout(() => {
-          setGameCount(gameCount + 1);
-        }, 1100);
+      if (gameCount + 1 === championArray.length * 5) {
+        if (userScore + 1 === championArray.length * 5) {
+          setPerfectScore(true);
+          setTimeout(() => {
+            setShowEndMenu(true);
+            setAnimationEnd(true);
+            confetti({
+              spread: 70,
+              particleCount: 150,
+              startVelocity: 35,
+            });
+          }, 1000);
+        }
+        setGameEnd(true);
+      } else {
+        if (isFastMode && userLife !== 0) {
+          setTimeout(() => {
+            setGameCount(gameCount + 1);
+          }, 10);
+        }
       }
     } else {
       setUserCurrentGuessName(currentGuess.name + "(" + currentGuess.championName + ")");
@@ -85,10 +108,15 @@ export default function Game(props) {
         }, 1100);
       }
     }
+    setQuestionAbilityCurrent(() => {
+      return questionAbilityCurrent + 1;
+    });
   };
 
   const handleNewGame = (difficultSelection) => {
+    setPerfectScore(false);
     setFifteenOptions(difficultSelection);
+    setQuestionAbilityCurrent(0);
     setGameCount(0);
     setUserLife(3);
     setUserScore(0);
@@ -99,11 +127,19 @@ export default function Game(props) {
   const pullFromLocalStorage = () => {
     let storedGamesPlayed = localStorage.getItem("numPlayed");
     let storedHighestStreak = localStorage.getItem("highestStreak");
+    let storedGamesPlayedVeteran = localStorage.getItem("numPlayedVeteran");
+    let storedHighestStreakVeteran = localStorage.getItem("highestStreakVeteran");
     if (storedGamesPlayed) {
       setNumGamesPlayed(parseInt(storedGamesPlayed, 10));
     }
     if (storedHighestStreak) {
       setHighestStreak(parseInt(storedHighestStreak, 10));
+    }
+    if (storedGamesPlayedVeteran) {
+      setNumGamesPlayedVeteran(parseInt(storedGamesPlayedVeteran, 10));
+    }
+    if (storedHighestStreakVeteran) {
+      setHighestStreakVeteran(parseInt(storedHighestStreakVeteran, 10));
     }
   };
 
@@ -114,25 +150,33 @@ export default function Game(props) {
     }
   };
 
-  const setupAbilitySelection = (veteran) => {
+  const setupQuestionList = () => {
+    let questionArrayList = Array.from(Array(Object.keys(championObject).length * 5).keys());
+    shuffleArray(questionArrayList);
+    setQuestionAbilityOrder(questionArrayList);
+    return questionArrayList;
+  };
+
+  const setupAbilitySelection = (veteran, questionArrayListValues) => {
     setGetAnswer(false);
     setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
-    const answerChampionNumber = Math.floor(Math.random() * championArray.length);
-
+    const answerChampionNumber = Math.floor(questionArrayListValues[questionAbilityCurrent] / 5);
     let selectedChamp = championObject[championArray[answerChampionNumber]];
     let selectedChampName = championArray[answerChampionNumber];
     selectedChamp = selectedChamp[selectedChampName];
-    let randomSelect = Math.floor(Math.random() * 5);
-    let selectedAbility;
-    if (randomSelect > 3) {
-      selectedAbility = selectedChamp.passive;
+    let selectedAbility = { name: "", isPassive: false };
+    if (questionArrayListValues[questionAbilityCurrent] % 5 === 4) {
+      selectedAbility = { ...selectedChamp.passive };
       selectedAbility.isPassive = true;
-      setSelectedChampionAbility(selectedAbility);
     } else {
-      selectedAbility = selectedChamp.spells[randomSelect];
+      let tempAbility = selectedChamp.spells[questionAbilityCurrent % 4];
+      selectedAbility = { ...tempAbility };
       selectedAbility.isPassive = false;
-      setSelectedChampionAbility(selectedAbility);
     }
+    if (!selectedAbility.name) {
+      selectedAbility.name = "";
+    }
+    setSelectedChampionAbility(selectedAbility);
     let additionalAbilityChoices = [];
     let abilityAmountCap = veteran ? 9 : 5;
     while (additionalAbilityChoices.length < abilityAmountCap) {
@@ -187,23 +231,15 @@ export default function Game(props) {
     setResults(false);
     setAnimationEnd(false);
     setUserCurrentGuessName("");
-    setupAbilitySelection(fifteenOptions);
+    if (gameCount === 0) {
+      setupAbilitySelection(fifteenOptions, setupQuestionList());
+    } else {
+      setupAbilitySelection(fifteenOptions, questionAbilityOrder);
+    }
     if (userLife !== 3 || userScore !== 0) {
       setFirstFadeAnimation(true);
     }
   }, [gameCount]);
-
-  function getClientLocale() {
-    if (typeof Intl !== "undefined") {
-      try {
-        return Intl.NumberFormat().resolvedOptions().locale;
-      } catch (err) {
-        return "en-US";
-      }
-    } else {
-      return "en-US";
-    }
-  }
 
   useEffect(() => {
     const firebaseConfig = {
@@ -226,7 +262,11 @@ export default function Game(props) {
       const analytics = getAnalytics();
       logEvent(analytics, "level_end", { success: true });
       logEvent(analytics, "post_score", { score: userScore });
-      setNumGamesPlayed(numGamesPlayed + 1);
+      if (fifteenOptions) {
+        setNumGamesPlayedVeteran(numGamesPlayedVeteran + 1);
+      } else {
+        setNumGamesPlayed(numGamesPlayed + 1);
+      }
       setTimeout(() => {
         setShowEndMenu(true);
         setAnimationEnd(true);
@@ -241,6 +281,16 @@ export default function Game(props) {
     }
     localStorage.setItem("numPlayed", "" + numGamesPlayed);
   }, [numGamesPlayed]);
+
+  useEffect(() => {
+    if (fifteenOptions) {
+      if (userScore > highestStreakVeteran) {
+        localStorage.setItem("highestStreakVeteran", "" + userScore);
+        setHighestStreakVeteran(userScore);
+      }
+      localStorage.setItem("numPlayedVeteran", "" + numGamesPlayedVeteran);
+    }
+  }, [numGamesPlayedVeteran]);
 
   return (
     <div>
@@ -301,7 +351,7 @@ export default function Game(props) {
                 className={fifteenOptions ? styles.difficultySelector : styles.difficultySelected}
                 onClick={() => {
                   setFifteenOptions(false);
-                  setupAbilitySelection(false);
+                  setupAbilitySelection(false, setupQuestionList());
                 }}
               >
                 NOVICE
@@ -310,7 +360,7 @@ export default function Game(props) {
                 className={fifteenOptions ? styles.difficultySelected : styles.difficultySelector}
                 onClick={() => {
                   setFifteenOptions(true);
-                  setupAbilitySelection(true);
+                  setupAbilitySelection(true, setupQuestionList());
                 }}
               >
                 VETERAN
@@ -367,7 +417,10 @@ export default function Game(props) {
               handleNewGame={handleNewGame}
               highestStreak={highestStreak}
               numGamesPlayed={numGamesPlayed}
+              highestStreakVeteran={highestStreakVeteran}
+              numGamesPlayedVeteran={numGamesPlayedVeteran}
               fifteenOptions={fifteenOptions}
+              perfectScore={perfectScore}
             ></GameResult>
           </div>
         </div>
@@ -398,6 +451,9 @@ export default function Game(props) {
           </div>
         </div>
       ) : null}
+      <div className={styles.questionProgress}>
+        {gameCount + 1} / {championArray.length * 5}
+      </div>
       {/*<div className={styles.answerCheckContainer}>{getAnswer ? results ? <div>correct!</div> : <div>try again</div> : null} </div>*/}
       <GuessOptions
         abilityOptions={abilityOptions}
@@ -413,6 +469,7 @@ export default function Game(props) {
         firstFadeAnimation={firstFadeAnimation}
         setFirstFadeAnimation={setFirstFadeAnimation}
         fifteenOptions={fifteenOptions}
+        userScore={userScore}
       ></GuessOptions>
       <GameFooter
         setShowInitialMenu={setShowInitialMenu}
@@ -423,6 +480,7 @@ export default function Game(props) {
         setShowEndMenu={setShowEndMenu}
         showButtons={showButtons}
         isFastMode={isFastMode}
+        gameEnd={gameEnd}
       ></GameFooter>
       <FastToggle
         isFastMode={isFastMode}
@@ -432,6 +490,7 @@ export default function Game(props) {
         setGameCount={setGameCount}
         setFirstFadeAnimation={setFirstFadeAnimation}
         userLife={userLife}
+        gameEnd={gameEnd}
       ></FastToggle>
     </div>
   );
