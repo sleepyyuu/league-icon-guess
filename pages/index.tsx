@@ -8,6 +8,7 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>LoL Skill Issue</title>
+        <link rel="preconnect" href="https://ddragon.leagueoflegends.com/" />
         <meta name="description" content="League of Legends mini game ability icon guessing game, ability icon matching game." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <link rel="icon" href="/favicon.ico" />
