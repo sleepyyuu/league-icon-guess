@@ -2,6 +2,7 @@ import GuessOptions from "./GuessOptions";
 import GameScoreBoard from "./GameScoreBoard";
 import GameFooter from "./GameFooter";
 import LangSelect from "./LangSelect";
+import GameTimer from "./GameTimer";
 import championListData from "../../assets/en_US/champion.json";
 import GameResult from "./GameResult";
 import FastToggle from "./FastToggle";
@@ -16,20 +17,24 @@ import { initializeApp } from "firebase/app";
 import { useRouter } from "next/router";
 import confetti from "canvas-confetti";
 
-export default function Game(props) {
+//keep track of total time taken for result
+//allow redo of answer on same round
+
+export default function TimedGame(props) {
   const { championObject, lang } = props;
   const { asPath } = useRouter();
   let locale = asPath.split("/")[2];
   if (!locale) {
     locale = "en_US";
   }
+
   const [fifteenOptions, setFifteenOptions] = useState(false);
   const [selectedChampionAbility, setSelectedChampionAbility] = useState({ name: "" });
   const [abilityOptions, setAbilityOptions] = useState([]);
   const [currentGuessRow, setCurrentGuessRow] = useState([{ name: "", image: { full: "" }, isPassive: false }]);
   const [gameCount, setGameCount] = useState(0);
   const [userCurrentGuessName, setUserCurrentGuessName] = useState("");
-  const [userLife, setUserLife] = useState(3);
+  const [userLife, setUserLife] = useState(20);
   const [userScore, setUserScore] = useState(0);
   const [getAnswer, setGetAnswer] = useState(false);
   const [results, setResults] = useState(false);
@@ -47,6 +52,8 @@ export default function Game(props) {
   const [questionAbilityCurrent, setQuestionAbilityCurrent] = useState(0);
   const [perfectScore, setPerfectScore] = useState(false);
   const [gameEnd, setGameEnd] = useState(false);
+  const [timeScoreChange, setTimeScoreChange] = useState(0);
+  const [timerReset, setTimerReset] = useState(false);
   const championArray = Object.keys(championListData.data);
   const exampleAbilities = [
     <img
@@ -75,10 +82,13 @@ export default function Game(props) {
       logEvent(analytics, "user_answer_correct", { skillNameCorrect: abilityName });
       setResults(true);
       setUserScore(userScore + 1);
+      setTimeScoreChange(10);
       if (gameCount + 1 === championArray.length * 5) {
         if (userScore + 1 === championArray.length * 5) {
           setPerfectScore(true);
           setTimeout(() => {
+            setShowEndMenu(true);
+            setAnimationEnd(true);
             confetti({
               spread: 70,
               particleCount: 150,
@@ -86,6 +96,7 @@ export default function Game(props) {
             });
           }, 1000);
         }
+        setGameEnd(true);
       } else {
         if (isFastMode && userLife !== 0) {
           setTimeout(() => {
@@ -98,38 +109,32 @@ export default function Game(props) {
       logEvent(analytics, "user_answer_incorrect", { skillNameIncorrect: abilityName });
       setResults(false);
       setCurrentGuessRow([{ name: "", image: { full: "" }, isPassive: false }]);
-      setUserLife(userLife - 1);
-      if (isFastMode && userLife - 1 !== 0 && gameCount + 1 !== championArray.length * 5) {
+      setTimeScoreChange(-10);
+      if (isFastMode && userLife - 1 !== 0) {
         setTimeout(() => {
           setGameCount(gameCount + 1);
         }, 1100);
       }
     }
-    if (gameCount + 1 !== championArray.length * 5) {
-      setQuestionAbilityCurrent(() => {
-        return questionAbilityCurrent + 1;
-      });
-    } else {
-      setTimeout(() => {
-        setShowEndMenu(true);
-        setAnimationEnd(true);
-      }, 1000);
-      setGameEnd(true);
-    }
+    setQuestionAbilityCurrent(() => {
+      return questionAbilityCurrent + 1;
+    });
   };
 
   const handleNewGame = (difficultSelection) => {
-    setPerfectScore(false);
     setGameEnd(false);
+    setPerfectScore(false);
+    setTimerReset(!timerReset);
     setFifteenOptions(difficultSelection);
     setQuestionAbilityCurrent(0);
     setGameCount(0);
-    setUserLife(3);
+    setUserLife(20);
     setUserScore(0);
     setShowEndMenu(false);
     pullFromLocalStorage();
   };
 
+  //handle new localstorage vars, don't overwrite classic mode scores
   const pullFromLocalStorage = () => {
     let storedGamesPlayed = localStorage.getItem("numPlayed");
     let storedHighestStreak = localStorage.getItem("highestStreak");
@@ -234,6 +239,7 @@ export default function Game(props) {
   };
 
   useEffect(() => {
+    setTimeScoreChange(0);
     setResults(false);
     setAnimationEnd(false);
     setUserCurrentGuessName("");
@@ -331,7 +337,8 @@ export default function Game(props) {
           <div className={styles.modalHeader}>INFO</div>
           <div className={styles.modalContent}>
             <div className={styles.infoContainer}>
-              <div>Aim for a high streak in 3 lives.</div>
+              <div>Aim for a high streak in the shortest time.</div>
+              <div>+10 seconds on match, -10 seconds on mismatch.</div>
               <div>Tap the icon that matches the name.</div>
               <div>Novice has 9 choices. Veteran has 16 choices.</div>
             </div>
@@ -351,7 +358,7 @@ export default function Game(props) {
               </div>
             </div>
           </div>
-          {userLife === 3 && userScore === 0 ? (
+          {userLife === 20 && userScore === 0 ? (
             <div className={styles.difficultyContainer}>
               <div
                 className={fifteenOptions ? styles.difficultySelector : styles.difficultySelected}
@@ -431,7 +438,18 @@ export default function Game(props) {
           </div>
         </div>
       </Popup>
-      {showButtons ? <GameScoreBoard userLife={userLife} userScore={userScore} results={results}></GameScoreBoard> : null}
+      {showButtons ? (
+        <GameScoreBoard
+          userLife={userLife}
+          userScore={userScore}
+          results={results}
+          timedAttack={true}
+          timeScoreChange={timeScoreChange}
+          setUserLife={setUserLife}
+          timerReset={timerReset}
+          setFirstFadeAnimation={setFirstFadeAnimation}
+        ></GameScoreBoard>
+      ) : null}
       {showButtons ? (
         <div className={styles.gameHeader}>
           {userCurrentGuessName === "" ? null : (

@@ -1,7 +1,7 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import Game from "../components/Game/Game";
-import championObject from "../assets/en_US/lang_import";
+import styles from "../../styles/Home.module.css";
+import TimedGame from "../../components/Game/TimedGame";
+import championObject from "../../assets/en_US/lang_import";
 
 export default function Home() {
   return (
@@ -23,9 +23,7 @@ export default function Home() {
         <div></div>
       </header>
 
-      <main className={styles.main}>
-        <Game championObject={championObject}></Game>
-      </main>
+      <main className={styles.main}>{/* <TimedGame championObject={championObject}></TimedGame> */}</main>
     </div>
   );
 }
